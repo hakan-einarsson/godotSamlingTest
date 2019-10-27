@@ -19,4 +19,7 @@ points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
 width = 15.0
 default_color = Color( 1, 0.596078, 0.4, 1 )
 gradient = SubResource( 2 )
-texture_mode = 1061544963
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,12 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://projektil.gd" type="Script" id=1]
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 5.0
+height = 10.0
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Curve" id=2]
+min_value = -2.5
+max_value = 2.5
+_data = [ Vector2( 0, -1.1385 ), 0.0, 39.5312, 0, 0, Vector2( 0.55721, -2.4585 ), 0.0, 0.0, 0, 0, Vector2( 0.986287, 2.2935 ), 37.3559, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.562914, 1 )
 colors = PoolColorArray( 1, 0, 0, 1, 0.976563, 0.0953674, 0.0953674, 1, 1, 1, 1, 1 )
 
 [node name="Area2d" type="Area2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -15,9 +27,14 @@ shape = SubResource( 1 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="CollisionShape2D"]
 amount = 200
 randomness = 0.5
-local_coords = false
 emission_shape = 2
-emission_rect_extents = Vector2( 10, 20 )
+emission_rect_extents = Vector2( 5, 10 )
 spread = 79.84
 gravity = Vector2( 0, 0 )
-color_ramp = SubResource( 2 )
+scale_amount = 2.0
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 1, 0, 0, 1 )
+[connection signal="body_entered" from="." to="." method="_on_Area2d_body_entered"]
