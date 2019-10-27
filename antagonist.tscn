@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.65413, 10 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 0.0884715, 0.199219, 0.0381317, 1, 0.359375, 0.106031, 0.0645752, 1 )
+
+[node name="protagonist" type="KinematicBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Line2D" type="Line2D" parent="CollisionShape2D"]
+points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
+width = 15.0
+default_color = Color( 1, 0.596078, 0.4, 1 )
+gradient = SubResource( 2 )
+texture_mode = 1061544963
