@@ -10,6 +10,7 @@ var direction = Vector2()
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
+var textScen = load("res://TextLabel.tscn")
 # Called when the node enters the scene tree for the first time.
 
 func _input(event):
@@ -27,7 +28,6 @@ func _physics_process(delta):
 	
 func take_damage(damage,recipient):
 	health-=damage
-	print(health)
 
 func _on_Timer_timeout():
 	if on_cooldown:
