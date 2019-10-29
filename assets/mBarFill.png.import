@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/TjockisBlue.png-0e4db25062a2fec96cbee9963c1aa7f2.stex"
+path="res://.import/mBarFill.png-93a287009c16ff19970d7a11d4fbf483.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/TjockisBlue.png"
-dest_files=[ "res://.import/TjockisBlue.png-0e4db25062a2fec96cbee9963c1aa7f2.stex" ]
+source_file="res://assets/mBarFill.png"
+dest_files=[ "res://.import/mBarFill.png-93a287009c16ff19970d7a11d4fbf483.stex" ]
 
 [params]
 

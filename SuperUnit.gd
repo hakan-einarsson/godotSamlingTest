@@ -6,10 +6,23 @@ onready var timer = get_node("Timer")
 var on_cooldown = false
 var cooldown_time=3 #borde vara skill-specifikin
 var ms = cooldown_time
-var health = 100
 var speed = 100
 var direction = Vector2()
 var movement = Vector2()
+
+var stats = {
+	strength:10,
+	agility:10,
+	intellect:10,
+	spiriti:10,
+	stamina:10}
+	
+var health = stats.stamina*10
+var mana = stats.intellect*15
+var attackpower = stats.strength*2
+var manaregen = stats.spirit*0.1
+var crit = stats.agility*0.1
+
 
 # Called when the node enters the scene tree for the first time.
 
@@ -37,20 +50,18 @@ func _on_Timer_timeout():
 			ms=cooldown_time
 			on_cooldown=false
 			
-func shoot():
+func use_skill():
 	if not on_cooldown:
 		timer.start()
 		on_cooldown = true;
-		var projektil = projektilScen.instance()
-		projektil.shoot(global_position,get_global_mouse_position(),self)
-		get_parent().add_child(projektil)
+		#var projektil = projektilScen.instance()
+		#projektil.shoot(global_position,get_global_mouse_position(),self)
+		#get_parent().add_child(projektil)
 		
 func death():
-	var explosion = explosion_scen.instance()
-	explosion.explodera(global_position)
+	#var explosion = explosion_scen.instance()
+	#explosion.explodera(global_position)
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
 	
-func get_health():
-	return health
 
