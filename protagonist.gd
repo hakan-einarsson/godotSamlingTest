@@ -4,13 +4,14 @@ onready var timer = get_node("Timer")
 var on_cooldown = false
 var ms = 3
 var health = 100
-
+export var max_health=100
 var speed = 100
 var direction = Vector2()
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
 var textScen = load("res://TextLabel.tscn")
+signal health_changed(new_value)
 # Called when the node enters the scene tree for the first time.
 
 func _input(event):
@@ -28,6 +29,7 @@ func _physics_process(delta):
 	
 func take_damage(damage,recipient):
 	health-=damage
+	emit_signal("health_changed", health)
 
 func _on_Timer_timeout():
 	if on_cooldown:
@@ -41,8 +43,8 @@ func shoot():
 		timer.start()
 		on_cooldown = true;
 		var projektil = projektilScen.instance()
-		projektil.shoot(global_position,get_global_mouse_position(),self)
 		get_parent().add_child(projektil)
+		projektil.shoot(global_position,get_global_mouse_position(),self)
 		
 func death():
 	var explosion = explosion_scen.instance()

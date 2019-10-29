@@ -1,12 +1,81 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://protagonist.gd" type="Script" id=1]
+[ext_resource path="res://assets/linkGreenOverworld.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.65413, 10 )
+extents = Vector2( 8, 8 )
 
 [sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 0.199219, 0.0381317, 0.0381317, 1, 0.0645752, 0.117547, 0.359375, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Down"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Left"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 6, 7 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Right"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 5 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Up"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 3 ]
+}
 
 [node name="protagonist" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -15,6 +84,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="Line2D" type="Line2D" parent="CollisionShape2D"]
+visible = false
 points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
 width = 15.0
 default_color = Color( 1, 0.596078, 0.4, 1 )
@@ -22,4 +92,15 @@ gradient = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 8
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+anims/Down = SubResource( 3 )
+anims/Left = SubResource( 4 )
+anims/Right = SubResource( 5 )
+anims/Up = SubResource( 6 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

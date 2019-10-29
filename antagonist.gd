@@ -11,6 +11,7 @@ var projektilScen = load("res://AntagonistProjektil.tscn")
 # Declare member variables here. Examples:
 # var a = 2
 var explosion_scen = load("res://Explosion.tscn")
+export var max_health = 100
 var health = 100
 
 # Called when the node enters the scene tree for the first time.

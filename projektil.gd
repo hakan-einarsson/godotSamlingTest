@@ -20,7 +20,7 @@ func shoot(start_pos,target,body):
 	self.global_position=start_pos
 	direction = (target - start_pos).normalized()
 	#print("shoot",direction)
-	#rotate(get_angle_to(target))
+	rotate(get_angle_to(target))
 	
 
 func _on_Area2d_body_entered(body):
