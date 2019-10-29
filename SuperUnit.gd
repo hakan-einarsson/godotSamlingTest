@@ -1,24 +1,24 @@
 extends KinematicBody2D
 onready var timer = get_node("Timer")
+#var projektilScen = load("res://projektil.tscn")
+#var explosion_scen = load("res://Explosion.tscn")
 
 var on_cooldown = false
-var ms = 3
+var cooldown_time=3 #borde vara skill-specifikin
+var ms = cooldown_time
 var health = 100
-
 var speed = 100
 var direction = Vector2()
 var movement = Vector2()
-var projektilScen = load("res://projektil.tscn")
-var explosion_scen = load("res://Explosion.tscn")
-var textScen = load("res://TextLabel.tscn")
+
 # Called when the node enters the scene tree for the first time.
 
-func _input(event):
-	movement.x = (int(Input.is_action_pressed("ui_right"))-int(Input.is_action_pressed("ui_left")))*speed
-	movement.y = (int(Input.is_action_pressed("ui_down"))-int(Input.is_action_pressed("ui_up")))*speed
+#func _input(event):
+	#movement.x = (int(Input.is_action_pressed("ui_right"))-int(Input.is_action_pressed("ui_left")))*speed
+	#movement.y = (int(Input.is_action_pressed("ui_down"))-int(Input.is_action_pressed("ui_up")))*speed
 
-	if event.is_action_pressed("ui_accept"): 
-		shoot()
+	#if event.is_action_pressed("ui_accept"): 
+	#	shoot()
 			
 		# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -28,12 +28,13 @@ func _physics_process(delta):
 	
 func take_damage(damage,recipient):
 	health-=damage
+	print(health)
 
 func _on_Timer_timeout():
 	if on_cooldown:
 		ms-=1
 		if ms == 0:
-			ms=3
+			ms=cooldown_time
 			on_cooldown=false
 			
 func shoot():
@@ -52,3 +53,4 @@ func death():
 	
 func get_health():
 	return health
+

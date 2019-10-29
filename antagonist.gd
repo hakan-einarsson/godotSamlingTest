@@ -1,5 +1,6 @@
 extends KinematicBody2D
 onready var timer = get_node("Timer")
+var labelScen = load("res://TextLabel.tscn")
 
 var target = null
 var on_cooldown = false
@@ -26,10 +27,13 @@ func _physics_process(delta):
 		
 	if health <= 0:
 		death()
-func take_damage(amount,recipient):
+func take_damage(amount,source):
 	health-=amount
+	#var label = labelScen.instance()
+	#get_parent().add_child(label)
+	#label.show_text("-"+str(amount),position)
 	if target == null:
-		target = recipient
+		target = source
 	
 func death():
 	var explosion = explosion_scen.instance()
