@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/groundSimple.png-6c30fbd2a78da2397b87891b3057255f.stex"
+path="res://.import/linkGreenOverworld.png-046375d4ff42211863df5efa2957ea54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://groundSimple.png"
-dest_files=[ "res://.import/groundSimple.png-6c30fbd2a78da2397b87891b3057255f.stex" ]
+source_file="res://assets/linkGreenOverworld.png"
+dest_files=[ "res://.import/linkGreenOverworld.png-046375d4ff42211863df5efa2957ea54.stex" ]
 
 [params]
 

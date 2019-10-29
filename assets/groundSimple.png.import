@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rodochgron.png-c70db1db667cbb5998f7787148912ab5.stex"
+path="res://.import/groundSimple.png-e76a7a9def30f38d7a196ae1bfcc1713.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rodochgron.png"
-dest_files=[ "res://.import/rodochgron.png-c70db1db667cbb5998f7787148912ab5.stex" ]
+source_file="res://assets/groundSimple.png"
+dest_files=[ "res://.import/groundSimple.png-e76a7a9def30f38d7a196ae1bfcc1713.stex" ]
 
 [params]
 
