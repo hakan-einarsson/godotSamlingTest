@@ -78,7 +78,8 @@ func get_player_state(target_position):
 
 func show_damage_text(damage):
 		var popupDamageText = PopupDamageObject.instance()
+		get_tree().get_root().add_child(popupDamageText)
 		popupDamageText.set_global_position(global_position)
 		popupDamageText.set_position_offset(-8,-20)
 		popupDamageText.set_damage_text(damage)
-		get_tree().get_root().add_child(popupDamageText)
+		
