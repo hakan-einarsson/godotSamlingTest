@@ -25,7 +25,7 @@ func _input(event):
 			
 		# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	set_animation()
+	set_animation(get_global_mouse_position())
 	if movement == Vector2():
 		animation_player.stop()
 	move_and_slide(movement)
@@ -57,13 +57,13 @@ func death():
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
 
-func set_animation():
-	if get_player_state() != animationState:
-		animationState=get_player_state()
+func set_animation(target_pos):
+	if get_player_state(target_pos) != animationState:
+		animationState=get_player_state(target_pos)
 	animation_player.play(animationState)
 
-func get_player_state():
-	var angleToMouse = get_angle_to(get_global_mouse_position())
+func get_player_state(target_position):
+	var angleToMouse = get_angle_to(target_position)
 	if abs(angleToMouse) <= 1:
 		return("Right")
 	elif abs(angleToMouse) >= 2:

@@ -104,4 +104,7 @@ anims/Down = SubResource( 3 )
 anims/Left = SubResource( 4 )
 anims/Right = SubResource( 5 )
 anims/Up = SubResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
