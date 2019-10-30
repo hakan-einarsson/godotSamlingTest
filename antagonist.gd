@@ -59,8 +59,8 @@ func shoot():
 		timer.start()
 		on_cooldown = true;
 		var projektil = projektilScen.instance()
-		projektil.shoot(global_position,target.global_position,self)
 		get_parent().add_child(projektil)
+		projektil.shoot(global_position,target.global_position,self)
 		
 func _on_Timer_timeout():
 	if on_cooldown:
