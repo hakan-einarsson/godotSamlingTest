@@ -14,11 +14,9 @@ tile_data = PoolIntArray( -1114102, 2, 0, -1114101, 2, 0, -1114100, 2, 0, -10485
 [node name="antagonist" parent="." instance=ExtResource( 2 )]
 position = Vector2( 723.554, 260.658 )
 scale = Vector2( 2, 2 )
-collision_layer = 2
-collision_mask = 8
+collision_mask = 12
 
 [node name="protagonist" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 position = Vector2( 214.344, 419.256 )
 scale = Vector2( 2, 2 )
 collision_mask = 16

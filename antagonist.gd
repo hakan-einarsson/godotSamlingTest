@@ -10,8 +10,8 @@ var speed = 100
 var animationState = "Down"
 
 var projektilScen = load("res://AntagonistProjektil.tscn")
-# Declare member variables here. Examples:
-# var a = 2
+signal health_changed(new_value)
+
 var explosion_scen = load("res://Explosion.tscn")
 export var max_health = 100
 var health = 100
@@ -33,6 +33,7 @@ func _physics_process(delta):
 		death()
 func take_damage(amount,source):
 	health-=amount
+	emit_signal("health_changed",health)
 	#var label = labelScen.instance()
 	#get_parent().add_child(label)
 	#label.show_text("-"+str(amount),position)
