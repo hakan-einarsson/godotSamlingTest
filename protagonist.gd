@@ -1,16 +1,18 @@
 extends KinematicBody2D
 onready var timer = get_node("Timer")
+onready var animation_player = get_node("Sprite/AnimationPlayer")
 
 var on_cooldown = false
 var ms = 3
 var health = 100
-export var max_health=100
+var max_health=100
 var speed = 100
 var direction = Vector2()
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
 var textScen = load("res://TextLabel.tscn")
+var animationState = "Down"
 signal health_changed(new_value)
 # Called when the node enters the scene tree for the first time.
 
@@ -23,6 +25,9 @@ func _input(event):
 			
 		# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	set_animation()
+	if movement == Vector2():
+		animation_player.stop()
 	move_and_slide(movement)
 	if health <=0:
 		death()
@@ -51,6 +56,20 @@ func death():
 	explosion.explodera(global_position)
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
-	
-func get_health():
-	return health
+
+func set_animation():
+	if get_player_state() != animationState:
+		animationState=get_player_state()
+	animation_player.play(animationState)
+
+func get_player_state():
+	var angleToMouse = get_angle_to(get_global_mouse_position())
+	if abs(angleToMouse) <= 1:
+		return("Right")
+	elif abs(angleToMouse) >= 2:
+		return("Left")
+	else:
+		if angleToMouse > 0:
+			return("Down")
+		else:
+			return("Up")
