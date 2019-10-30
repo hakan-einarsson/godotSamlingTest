@@ -16,6 +16,8 @@ var explosion_scen = load("res://Explosion.tscn")
 export var max_health = 100
 var health = 100
 
+var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -33,6 +35,7 @@ func _physics_process(delta):
 		death()
 func take_damage(amount,source):
 	health-=amount
+	show_damage_text(amount)
 	emit_signal("health_changed",health)
 	#var label = labelScen.instance()
 	#get_parent().add_child(label)
@@ -82,3 +85,10 @@ func get_player_state(target_position):
 			return("Down")
 		else:
 			return("Up")
+
+func show_damage_text(damage):
+		var popupDamageText = PopupDamageObject.instance()
+		popupDamageText.set_global_position(global_position)
+		popupDamageText.set_position_offset(-8,-20)
+		popupDamageText.set_damage_text(damage)
+		get_tree().get_root().add_child(popupDamageText)
