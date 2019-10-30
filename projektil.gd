@@ -24,6 +24,6 @@ func shoot(start_pos,target,body):
 	
 
 func _on_Area2d_body_entered(body):
-	get_parent().remove_child(self)
+	queue_free()
 	if body.get_name() != "TileMap":
 		body.take_damage(damage,source)
