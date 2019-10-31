@@ -1,4 +1,20 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="Text" type="Label"]
-text = "Placeholder"
+[sub_resource type="Animation" id=1]
+resource_name = "TextFloat"
+
+[node name="Text" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "-50"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Label"]
+anims/TextFloat = SubResource( 1 )
