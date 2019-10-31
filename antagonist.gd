@@ -10,6 +10,7 @@ var speed = 100
 var animationState = "Down"
 
 var projektilScen = load("res://AntagonistProjektil.tscn")
+var floating_text_scen = load("res://Interface/Text.tscn")
 signal health_changed(new_value)
 
 var explosion_scen = load("res://Explosion.tscn")
@@ -32,6 +33,12 @@ func _physics_process(delta):
 	if health <= 0:
 		death()
 func take_damage(amount,source):
+	var floating_text = floating_text_scen.instance()
+	floating_text.position=position
+	floating_text.velocity = Vector2(0,-100)
+	floating_text.set_color(Color(1,0,0))
+	floating_text.text = "-"+str(amount)
+	get_parent().add_child(floating_text)
 	health-=amount
 	emit_signal("health_changed",health)
 	#var label = labelScen.instance()
