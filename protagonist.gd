@@ -11,8 +11,11 @@ var direction = Vector2()
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
-var textScen = load("res://TextLabel.tscn")
+
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
+
+var floating_text_scen = load("res://Interface/Text.tscn")
+
 var animationState = "Down"
 signal health_changed(new_value)
 # Called when the node enters the scene tree for the first time.
@@ -33,9 +36,16 @@ func _physics_process(delta):
 	if health <=0:
 		death()
 	
-func take_damage(damage,recipient):
-	health-=damage
-	show_damage_text(damage)
+
+func take_damage(amount,recipient):
+	var floating_text = floating_text_scen.instance()
+	floating_text.position=position
+	floating_text.velocity = Vector2(0,-100)
+	floating_text.set_color(Color(1,0,0))
+	floating_text.text = "-"+str(amount)
+	get_parent().add_child(floating_text)
+	health-=amount
+
 	emit_signal("health_changed", health)
 
 func _on_Timer_timeout():
