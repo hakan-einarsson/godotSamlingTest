@@ -5,8 +5,8 @@ var labelScen = load("res://TextLabel.tscn")
 
 var target = null
 var on_cooldown = false
-var ms = 5
-var speed = 100
+var ms = 8
+var speed = 50
 var animationState = "Down"
 
 var projektilScen = load("res://AntagonistProjektil.tscn")
@@ -16,23 +16,30 @@ signal health_changed(new_value)
 var explosion_scen = load("res://Explosion.tscn")
 export var max_health = 100
 var health = 100
+var direction = Vector2(0,1)
+var movement
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	animation_player.play(animationState)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if target and target.health > 0:
-		#random_movement()
+		speed = 100
 		set_animation(target.position)
 		shoot()
-		var direction = Vector2(cos(get_angle_to(target.position)),sin(get_angle_to(target.position)))
-		var movement = direction * speed
+		direction = Vector2(cos(get_angle_to(target.position)),sin(get_angle_to(target.position)))
+		movement = direction * speed
 		move_and_slide(movement)
 	else:
-		var movement = random_movement() * speed
-		move_and_slide(movement)
+		if randi()%100==1:
+			direction = random_movement()
+		movement = direction*speed*delta
+		var collision = move_and_collide(movement)
+		if collision:
+			direction = random_movement()
 	if health <= 0:
 		death()
 func take_damage(amount,source):
@@ -99,9 +106,9 @@ func random_movement():
 	"Down": Vector2(0,1),
 	"Left": Vector2(-1,0),
 	"Right": Vector2(1,0)}
-	return(direction [
-		direction.keys()[randi() % len(direction.keys())]
-		])
+	var rand_key=direction.keys()[randi() % len(direction.keys())]
+	animation_player.play(rand_key)
+	return(direction[rand_key])
 	
 	
 				
