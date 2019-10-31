@@ -19,6 +19,8 @@ var health = 100
 var direction = Vector2(0,1)
 var movement
 
+var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	animation_player.play(animationState)
@@ -50,6 +52,7 @@ func take_damage(amount,source):
 	floating_text.text = "-"+str(amount)
 	get_parent().add_child(floating_text)
 	health-=amount
+	show_damage_text(amount)
 	emit_signal("health_changed",health)
 	#var label = labelScen.instance()
 	#get_parent().add_child(label)
@@ -73,8 +76,8 @@ func shoot():
 		timer.start()
 		on_cooldown = true;
 		var projektil = projektilScen.instance()
-		projektil.shoot(global_position,target.global_position,self)
 		get_parent().add_child(projektil)
+		projektil.shoot(global_position,target.global_position,self)
 		
 func _on_Timer_timeout():
 	if on_cooldown:
@@ -100,6 +103,15 @@ func get_player_state(target_position):
 		else:
 			return("Up")
 
+
+func show_damage_text(damage):
+		var popupDamageText = PopupDamageObject.instance()
+		get_tree().get_root().add_child(popupDamageText)
+		popupDamageText.set_global_position(global_position)
+		popupDamageText.set_position_offset(-8,-20)
+		popupDamageText.set_damage_text(damage)
+		
+
 func random_movement():
 	
 	var direction = {"Up": Vector2(0,-1),
@@ -112,4 +124,5 @@ func random_movement():
 	
 	
 				
+
 
