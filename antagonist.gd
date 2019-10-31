@@ -1,7 +1,7 @@
 extends KinematicBody2D
 onready var timer = get_node("Timer")
 onready var animation_player = get_node("Sprite/AnimationPlayer")
-var labelScen = load("res://TextLabel.tscn")
+
 
 var target = null
 var on_cooldown = false
