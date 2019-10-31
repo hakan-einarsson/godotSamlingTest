@@ -62,10 +62,15 @@ ui_down={
 [layer_names]
 
 2d_render/layer_1="Protagonist"
+2d_physics/layer_1="protagonist"
 2d_render/layer_2="Antagonist"
+2d_physics/layer_2="antagonist"
 2d_render/layer_3="Map"
+2d_physics/layer_3="tilemap"
 2d_render/layer_4="Projektil Protagonist"
+2d_physics/layer_4="projectile"
 2d_render/layer_5="Projektil Antagonist"
+2d_physics/layer_5="enemy projectile"
 
 [rendering]
 

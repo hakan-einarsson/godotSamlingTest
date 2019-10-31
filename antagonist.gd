@@ -67,9 +67,6 @@ func death():
 	get_parent().remove_child(self)
 	
 
-func _on_AggroRange_body_entered(body):
-	if body.get_name() == "protagonist":
-		target = body
 
 func shoot():
 	if not on_cooldown and target.health > 0:
@@ -122,7 +119,26 @@ func random_movement():
 	animation_player.play(rand_key)
 	return(direction[rand_key])
 	
+func get_distance(body):
+	if typeof(body) == TYPE_VECTOR2:
+		return position.distance_to(body)
+	else:
+		return position.distance_to(body.global_position)
 	
-				
+func in_sight(body):
+	var space_state = get_world_2d().direct_space_state
+	#print(position, body.position)
+	var result = space_state.intersect_ray(position, body.position, [self])
+	if result.collider.name == "protagonist":
+		return true
+	else:
+		return false
+
+func _on_AggroRange_body_entered(body):
+	if body.get_name() == "protagonist":
+		target = body
+
+func _on_AggroRange_body_exited(body):
+	pass # Replace with function body.
 
 
