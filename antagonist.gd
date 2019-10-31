@@ -23,13 +23,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if target:
+	if target and target.health > 0:
+		#random_movement()
 		set_animation(target.position)
 		shoot()
 		var direction = Vector2(cos(get_angle_to(target.position)),sin(get_angle_to(target.position)))
 		var movement = direction * speed
 		move_and_slide(movement)
-		
+	else:
+		var movement = random_movement() * speed
+		move_and_slide(movement)
 	if health <= 0:
 		death()
 func take_damage(amount,source):
@@ -89,3 +92,17 @@ func get_player_state(target_position):
 			return("Down")
 		else:
 			return("Up")
+
+func random_movement():
+	
+	var direction = {"Up": Vector2(0,-1),
+	"Down": Vector2(0,1),
+	"Left": Vector2(-1,0),
+	"Right": Vector2(1,0)}
+	return(direction [
+		direction.keys()[randi() % len(direction.keys())]
+		])
+	
+	
+				
+
