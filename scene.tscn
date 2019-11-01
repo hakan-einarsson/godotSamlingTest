@@ -16,6 +16,11 @@ position = Vector2( 723.554, 260.658 )
 scale = Vector2( 2, 2 )
 collision_mask = 12
 
+[node name="antagonist2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 663.554, 413.29 )
+scale = Vector2( 2, 2 )
+collision_mask = 12
+
 [node name="protagonist" parent="." instance=ExtResource( 3 )]
 position = Vector2( 214.344, 419.256 )
 scale = Vector2( 2, 2 )

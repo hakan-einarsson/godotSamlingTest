@@ -2,8 +2,9 @@ extends KinematicBody2D
 onready var timer = get_node("Timer")
 onready var animation_player = get_node("Sprite/AnimationPlayer")
 
-
 var target = null
+var bodies_in_aggro_range=[]
+
 var on_cooldown = false
 var ms = 8
 var speed = 50
@@ -28,6 +29,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	find_a_target(bodies_in_aggro_range)
 	if target and target.health > 0:
 		speed = 100
 		set_animation(target.position)
@@ -65,8 +67,6 @@ func death():
 	explosion.explodera(global_position)
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
-	
-
 
 func shoot():
 	if not on_cooldown and target.health > 0:
@@ -100,7 +100,6 @@ func get_player_state(target_position):
 		else:
 			return("Up")
 
-
 func show_damage_text(damage):
 		var popupDamageText = PopupDamageObject.instance()
 		get_tree().get_root().add_child(popupDamageText)
@@ -108,9 +107,7 @@ func show_damage_text(damage):
 		popupDamageText.set_position_offset(-8,-20)
 		popupDamageText.set_damage_text(damage)
 		
-
 func random_movement():
-	
 	var direction = {"Up": Vector2(0,-1),
 	"Down": Vector2(0,1),
 	"Left": Vector2(-1,0),
@@ -135,10 +132,16 @@ func in_sight(body):
 		return false
 
 func _on_AggroRange_body_entered(body):
-	if body.get_name() == "protagonist":
-		target = body
-
+	if body.name != "TileMap":
+		bodies_in_aggro_range.append(body)
+		
 func _on_AggroRange_body_exited(body):
-	pass # Replace with function body.
-
+	if body in bodies_in_aggro_range:
+		bodies_in_aggro_range.remove(bodies_in_aggro_range.find(body))
+		
+func find_a_target(possible_targets):
+	if possible_targets != []:
+		for tar in possible_targets:
+			if in_sight(tar):
+				target = tar
 
