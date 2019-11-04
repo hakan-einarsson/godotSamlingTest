@@ -15,6 +15,6 @@ func _process(delta):
 	#zombie.set_path(simple_path)
 	
 func return_path(unit, target):
-	var simple_path = nav_2d.get_simple_path(unit,target,false)
+	var simple_path = nav_2d.get_simple_path(target,unit,false)
 	set_process(true)
 	return simple_path
