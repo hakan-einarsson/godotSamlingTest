@@ -48,9 +48,6 @@ margin_right = 2.51758
 
 [node name="ZombieType" parent="." instance=ExtResource( 6 )]
 position = Vector2( 288.11, 192.22 )
-
-[node name="Line2D" type="Line2D" parent="."]
-texture_mode = -1090855617
 [connection signal="health_changed" from="protagonist" to="protagonist/CanvasLayer/Interface" method="_on_protagonist_health_changed"]
 
 [editable path="protagonist"]

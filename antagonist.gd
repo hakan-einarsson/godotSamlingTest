@@ -19,6 +19,7 @@ export var max_health = 100
 var health = 100
 var direction = Vector2(0,1)
 var movement
+var path = PoolVector2Array() 
 
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 
@@ -33,10 +34,10 @@ func _physics_process(delta):
 	if target and target.health > 0:
 		speed = 100
 		set_animation(target.position)
-		shoot()
-		direction = Vector2(cos(get_angle_to(target.position)),sin(get_angle_to(target.position)))
-		movement = direction * speed
-		move_and_slide(movement)
+		if in_sight(target):
+			shoot()
+		path = get_tree().get_root().get_node("scene").return_path(target.position,position)
+		move_along_path(speed)
 	else:
 		if randi()%100==1:
 			direction = random_movement()
@@ -46,6 +47,12 @@ func _physics_process(delta):
 			direction = random_movement()
 	if health <= 0:
 		death()
+		
+func move_along_path(distance):
+	direction = Vector2(cos(get_angle_to(path[1])),sin(get_angle_to(path[1])))
+	var movement = direction * distance
+	movement = move_and_slide(movement,Vector2(0,0),false,4,1)
+		
 func take_damage(amount,source):
 	var floating_text = floating_text_scen.instance()
 	floating_text.position=position
