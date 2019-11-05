@@ -11,6 +11,7 @@ var direction=Vector2()
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var explosion_scen = load("res://Explosion.tscn")
+var sword_scen = load("res://SwordSwing.tscn")
 signal health_changed(new_value)
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +28,10 @@ func _physics_process(delta):
 		move_along_path(speed)
 	if health <= 0:
 		death()
+		
+func hit():
+	var swordSwing = sword_scen.instance()
+	swordSwing.swing(self)
 
 func death():
 	var explosion = explosion_scen.instance()
@@ -71,3 +76,8 @@ func show_damage_text(damage):
 		popupDamageText.set_global_position(global_position)
 		popupDamageText.set_position_offset(-8,-20)
 		popupDamageText.set_damage_text(damage)
+
+
+func _on_MeleeRange_body_entered(body):
+	if body.name != "TileMap":
+		target = body

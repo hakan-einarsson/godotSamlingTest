@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ZombieType.gd" type="Script" id=1]
 [ext_resource path="res://assets/skeleton.png" type="Texture" id=2]
 [ext_resource path="res://HealthPopupBar.tscn" type="PackedScene" id=3]
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=1]
 radius = 16.0777
 
 [sub_resource type="Animation" id=2]
@@ -27,6 +27,9 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=3]
 radius = 160.0
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 29.6446
+
 [node name="ZombieType" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 12
@@ -34,7 +37,7 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.451874 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -53,4 +56,10 @@ shape = SubResource( 3 )
 [node name="ProgressBar" parent="." instance=ExtResource( 3 )]
 margin_top = -23.3419
 margin_bottom = -9.3418
+
+[node name="MeleeRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
+shape = SubResource( 4 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
