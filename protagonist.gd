@@ -4,10 +4,9 @@ onready var animation_player = get_node("Sprite/AnimationPlayer")
 
 var on_cooldown = false
 var ms = 3
-var health = 100
-var max_health=100
+var health = 100000
+var max_health=100000
 var speed = 100
-var direction = Vector2()
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
@@ -32,12 +31,13 @@ func _physics_process(delta):
 	set_animation(get_global_mouse_position())
 	if movement == Vector2():
 		animation_player.stop()
-	move_and_slide(movement)
+	movement = move_and_slide(movement)
 	if health <=0:
 		death()
 	
 
-func take_damage(amount,recipient):
+func take_damage(amount,source):
+	var something = source
 	var floating_text = floating_text_scen.instance()
 	floating_text.position=position
 	floating_text.velocity = Vector2(0,-100)

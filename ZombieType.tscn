@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ZombieType.gd" type="Script" id=1]
 [ext_resource path="res://assets/skeleton.png" type="Texture" id=2]
 [ext_resource path="res://HealthPopupBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://SwordSwing.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0777
@@ -28,7 +29,7 @@ tracks/0/keys = {
 radius = 160.0
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 29.6446
+radius = 47.6823
 
 [node name="ZombieType" type="KinematicBody2D"]
 collision_layer = 2
@@ -40,6 +41,7 @@ position = Vector2( 0, 0.451874 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+editor/display_folded = true
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 hframes = 2
@@ -48,18 +50,27 @@ hframes = 2
 anims/Walk = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource( 3 )
 
 [node name="ProgressBar" parent="." instance=ExtResource( 3 )]
 margin_top = -23.3419
 margin_bottom = -9.3418
 
+[node name="SwordSwing" parent="." instance=ExtResource( 4 )]
+
 [node name="MeleeRange" type="Area2D" parent="."]
+editor/display_folded = true
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
 shape = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
+[connection signal="body_exited" from="MeleeRange" to="." method="_on_MeleeRange_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

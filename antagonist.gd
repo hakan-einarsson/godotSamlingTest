@@ -132,11 +132,14 @@ func get_distance(body):
 func in_sight(body):
 	var space_state = get_world_2d().direct_space_state
 	#print(position, body.position)
-	var result = space_state.intersect_ray(position, body.position, [self])
-	if result.collider.name == "protagonist":
-		return true
-	else:
-		return false
+	if body.position != position:
+		var result = space_state.intersect_ray(position, body.position, [self])
+		#print(result)
+		if result:
+			if result.collider.name == "protagonist":
+				return true
+			else:
+				return false
 
 func _on_AggroRange_body_entered(body):
 	if body.name != "TileMap":

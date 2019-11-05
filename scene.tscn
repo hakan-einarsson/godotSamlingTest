@@ -18,15 +18,14 @@ tile_data = PoolIntArray( -1114102, 2, 0, -1114101, 2, 0, -1114100, 2, 0, -10485
 
 [node name="antagonist" parent="." instance=ExtResource( 3 )]
 position = Vector2( 723.554, 260.658 )
-scale = Vector2( 2, 2 )
 collision_mask = 12
 
 [node name="antagonist2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 663.554, 413.29 )
-scale = Vector2( 2, 2 )
 collision_mask = 12
 
 [node name="protagonist" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 214.344, 419.256 )
 scale = Vector2( 2, 2 )
 collision_mask = 16
@@ -48,6 +47,10 @@ margin_right = 2.51758
 
 [node name="ZombieType" parent="." instance=ExtResource( 6 )]
 position = Vector2( 288.11, 192.22 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
 [connection signal="health_changed" from="protagonist" to="protagonist/CanvasLayer/Interface" method="_on_protagonist_health_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [editable path="protagonist"]

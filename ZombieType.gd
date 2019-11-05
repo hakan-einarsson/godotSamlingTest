@@ -5,8 +5,13 @@ var max_health = 60
 var health = 60
 var path = PoolVector2Array() 
 onready var animator = $Sprite/AnimationPlayer
+onready var swordSwing = $SwordSwing
+onready var timer = $Timer
 var target = null
 var direction=Vector2()
+var target_in_melee_range = false
+var on_cooldown = false
+var ms = 8
 
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
@@ -16,22 +21,44 @@ signal health_changed(new_value)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	direction = random_movement()
+	swordSwing.visible=false
 	animator.play("Walk")
 
 func _physics_process(delta):
 	if direction == Vector2():
 		animator.stop()
+	if target_in_melee_range:
+		hit()
 	else:
 		animator.play("Walk")
 	if target and target.health > 0:
 		path = get_tree().get_root().get_node("scene").return_path(target.position,position)
 		move_along_path(speed)
+	else:
+		if randi()%100==1:
+			direction = random_movement()
+		var movement = direction*speed*delta
+		var collision = move_and_collide(movement)
+		if collision:
+			direction = random_movement()
 	if health <= 0:
 		death()
 		
+func random_movement():
+	var direction = {"Up": Vector2(0,-1),
+	"Down": Vector2(0,1),
+	"Left": Vector2(-1,0),
+	"Right": Vector2(1,0)}
+	var rand_key=direction.keys()[randi() % len(direction.keys())]
+	return(direction[rand_key])
+		
 func hit():
-	var swordSwing = sword_scen.instance()
-	swordSwing.swing(self)
+	if not on_cooldown:
+		swordSwing.swing(target,self)
+		on_cooldown=true
+		timer.start()
+		
 
 func death():
 	var explosion = explosion_scen.instance()
@@ -78,6 +105,24 @@ func show_damage_text(damage):
 		popupDamageText.set_damage_text(damage)
 
 
+
+
 func _on_MeleeRange_body_entered(body):
-	if body.name != "TileMap":
-		target = body
+	if body == target:
+		print("entered melee range")
+		target_in_melee_range=true
+
+
+func _on_MeleeRange_body_exited(body):
+	if body == target:
+		print("exited melee range")
+		target_in_melee_range=false
+		swordSwing.swing_stop()
+
+
+func _on_Timer_timeout():
+	if on_cooldown:
+		ms-=1
+		if ms == 0:
+			ms=3
+			on_cooldown=false
