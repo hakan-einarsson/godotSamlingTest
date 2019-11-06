@@ -11,3 +11,17 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Label_gui_input(event):
+	
+	if(Input.is_action_just_pressed("ui_accept")):
+		get_tree().change_scene("res://scene.tscn")
+	pass # Replace with function body.
+
+
+func _on_Label2_gui_input(event):
+	if(Input.is_action_just_pressed("ui_accept")):
+		get_tree().quit()
+	pass # Replace with function body.
+
