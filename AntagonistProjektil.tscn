@@ -6,5 +6,5 @@
 [node name="Area2d" instance=ExtResource( 1 )]
 editor/display_folded = true
 collision_layer = 16
-collision_mask = 5
+collision_mask = 1
 script = ExtResource( 2 )

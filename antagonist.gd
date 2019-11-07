@@ -1,6 +1,8 @@
 extends KinematicBody2D
 onready var timer = get_node("Timer")
 onready var animation_player = get_node("Sprite/AnimationPlayer")
+onready var cast_bar = $CastBar
+
 
 var target = null
 var bodies_in_aggro_range=[]
@@ -87,10 +89,11 @@ func death():
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
 
-func cast_start(spell_type): #det är här vi är. Dagens TODO är att fixa så att denna och cast bar funkar och att los fungerar korrekt och att denna unit håller range
+func cast_start(spell_type):
 	if not is_casting and target.health > 0:
 		spell = spell_type.instance()
 		cast_time = spell.get_cast_time()
+		cast_bar.set_cast_time(cast_time)
 		timer.start()
 		is_casting = true
 		
@@ -98,7 +101,10 @@ func cancel_cast():
 	timer.stop()
 	is_casting = false
 	cast_time=0
+	ms=0
 	spell.cancel()
+	cast_bar.reset_cast_bar()
+	
 
 func cast_complete():
 		var projektil = projektilScen.instance()
@@ -107,9 +113,11 @@ func cast_complete():
 		cast_time = 0
 		ms = 0
 		is_casting=false
+		cast_bar.reset_cast_bar()
 		
 func _on_Timer_timeout():
 	ms+=1
+	cast_bar.update_cast_bar()
 	
 			
 func set_animation(target_pos):
@@ -155,10 +163,9 @@ func in_sight(body):
 	var space_state = get_world_2d().direct_space_state
 	#print(position, body.position)
 	if body.position != position:
-		var result = space_state.intersect_ray(position, body.position, [self])
-		#print(result)
+		var result = space_state.intersect_ray(position, body.position,[self])
 		if result:
-			if result.collider.name == "protagonist":
+			if result.collider.name == "protagonist" or result.collider.name=="ZombieType" or result.collider.name=="antagonist":
 				return true
 			else:
 				return false

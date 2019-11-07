@@ -1,0 +1,12 @@
+TODO:
+
+Interface, add buttons for abilities and potions
+
+Abilities dash, aoe and
+
+Boss
+
+Story...
+
+Bugs.
+

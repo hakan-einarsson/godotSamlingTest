@@ -3,18 +3,16 @@
 [ext_resource path="res://antagonist.gd" type="Script" id=1]
 [ext_resource path="res://assets/TjockisBlue.png" type="Texture" id=2]
 [ext_resource path="res://HealthPopupBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://CastBar.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 6.60397
 height = 2.8719
 
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 0.0884715, 0.199219, 0.0381317, 1, 0.359375, 0.106031, 0.0645752, 1 )
-
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 240.3
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "Down"
 length = 0.4
 loop = true
@@ -31,7 +29,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "Left"
 length = 0.4
 loop = true
@@ -48,7 +46,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "Right"
 length = 0.4
 loop = true
@@ -65,7 +63,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "Up"
 length = 0.4
 loop = true
@@ -88,21 +86,13 @@ collision_mask = 4
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-editor/display_folded = true
 shape = SubResource( 1 )
-
-[node name="Line2D" type="Line2D" parent="CollisionShape2D"]
-visible = false
-points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
-width = 15.0
-default_color = Color( 1, 0.596078, 0.4, 1 )
-gradient = SubResource( 2 )
 
 [node name="AggroRange" type="Area2D" parent="."]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="AggroRange"]
 position = Vector2( 0.0131757, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -115,16 +105,20 @@ hframes = 8
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Down = SubResource( 4 )
-anims/Left = SubResource( 5 )
-anims/Right = SubResource( 6 )
-anims/Up = SubResource( 7 )
+anims/Down = SubResource( 3 )
+anims/Left = SubResource( 4 )
+anims/Right = SubResource( 5 )
+anims/Up = SubResource( 6 )
 
 [node name="ProgressBar" parent="." instance=ExtResource( 3 )]
 margin_left = -10.264
 margin_top = -26.4311
 margin_right = 29.736
 margin_bottom = -12.4311
+
+[node name="CastBar" parent="." instance=ExtResource( 4 )]
+margin_top = -20.6933
+margin_bottom = -6.69324
 [connection signal="health_changed" from="." to="ProgressBar" method="_on_antagonist_health_changed"]
 [connection signal="body_entered" from="AggroRange" to="." method="_on_AggroRange_body_entered"]
 [connection signal="body_exited" from="AggroRange" to="." method="_on_AggroRange_body_exited"]

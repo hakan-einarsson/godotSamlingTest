@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Interface/Interface.gd" type="Script" id=1]
 [ext_resource path="res://Interface/Healthbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sword.png" type="Texture" id=3]
+[ext_resource path="res://assets/frostbolt.png" type="Texture" id=4]
+[ext_resource path="res://assets/potion.png" type="Texture" id=5]
+[ext_resource path="res://assets/boot.png" type="Texture" id=6]
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.22772
+margin_right = 1.22778
 script = ExtResource( 1 )
 
 [node name="Healthbar" parent="." instance=ExtResource( 2 )]
@@ -13,3 +19,35 @@ margin_left = 73.1711
 margin_top = 70.2442
 margin_right = 77.1711
 margin_bottom = 84.2442
+
+[node name="AttackButton" type="TextureButton" parent="."]
+margin_left = 29.5736
+margin_top = 544.046
+margin_right = 61.5736
+margin_bottom = 576.047
+rect_clip_content = true
+texture_normal = ExtResource( 3 )
+
+[node name="RangedAttack" type="TextureButton" parent="."]
+margin_left = 61.5736
+margin_top = 544.046
+margin_right = 93.5736
+margin_bottom = 576.046
+rect_clip_content = true
+texture_normal = ExtResource( 4 )
+
+[node name="Potion" type="TextureButton" parent="."]
+margin_left = 93.5736
+margin_top = 544.046
+margin_right = 125.574
+margin_bottom = 576.046
+rect_clip_content = true
+texture_normal = ExtResource( 5 )
+
+[node name="Dash" type="TextureButton" parent="."]
+margin_left = 125.574
+margin_top = 544.046
+margin_right = 157.574
+margin_bottom = 576.047
+rect_clip_content = true
+texture_normal = ExtResource( 6 )

@@ -19,7 +19,6 @@ tile_data = PoolIntArray( -1114102, 2, 0, -1114101, 2, 0, -1114100, 2, 0, -10485
 
 [node name="antagonist" parent="." instance=ExtResource( 3 )]
 position = Vector2( 723.554, 260.658 )
-scale = Vector2( 1, 1 )
 collision_mask = 12
 
 [node name="antagonist2" parent="." instance=ExtResource( 3 )]
