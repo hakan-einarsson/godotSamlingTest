@@ -6,11 +6,12 @@ var target = null
 var bodies_in_aggro_range=[]
 
 var on_cooldown = false
-var ms = 8
+var ms = 0
 var speed = 50
 var animationState = "Down"
 var is_casting = false
 var spell = null
+var cast_time=0
 
 var projektilScen = load("res://AntagonistProjektil.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
@@ -32,15 +33,24 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	find_a_target(bodies_in_aggro_range)
 	if target and target.health > 0:
 		speed = 100
 		set_animation(target.position)
-		if in_sight(target):
-			cast_start(projektilScen)
-		path = get_tree().get_root().get_node("scene").return_path(target.position,position)
-		move_along_path(speed)
+		if not is_casting:
+			if in_sight(target):
+				cast_start(projektilScen)
+				animation_player.stop()
+			else:
+				path = get_tree().get_root().get_node("scene").return_path(target.position,position)
+				move_along_path(speed)
+		else:
+			if not in_sight(target):
+				cancel_cast()
+			else:
+				if ms == cast_time:
+					cast_complete()
 	else:
+		find_a_target(bodies_in_aggro_range)
 		if randi()%100==1:
 			direction = random_movement()
 		movement = direction*speed*delta
@@ -80,21 +90,27 @@ func death():
 func cast_start(spell_type): #det är här vi är. Dagens TODO är att fixa så att denna och cast bar funkar och att los fungerar korrekt och att denna unit håller range
 	if not is_casting and target.health > 0:
 		spell = spell_type.instance()
+		cast_time = spell.get_cast_time()
 		timer.start()
 		is_casting = true
 		
+func cancel_cast():
+	timer.stop()
+	is_casting = false
+	cast_time=0
+	spell.cancel()
 
 func cast_complete():
 		var projektil = projektilScen.instance()
 		get_parent().add_child(projektil)
 		projektil.shoot(global_position,target.global_position,self)
+		cast_time = 0
+		ms = 0
+		is_casting=false
 		
 func _on_Timer_timeout():
-	if on_cooldown:
-		ms-=1
-		if ms == 0:
-			ms=3
-			on_cooldown=false
+	ms+=1
+	
 			
 func set_animation(target_pos):
 	if get_player_state(target_pos) != animationState:
