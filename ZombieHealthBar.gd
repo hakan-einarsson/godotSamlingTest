@@ -16,11 +16,6 @@ func _ready():
 #	pass
 
 
-func _on_antagonist_health_changed(new_value):
-	ms=15
-	bar.value=new_value
-	timer.start()
-
 
 func _on_Timer_timeout():
 	if ms > 0:
@@ -35,4 +30,6 @@ func _on_Timer_timeout():
 
 
 func _on_ZombieType_health_changed(new_value):
-	pass # Replace with function body.
+	ms=15
+	bar.value=new_value
+	timer.start()

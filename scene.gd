@@ -31,5 +31,5 @@ func _on_Timer_timeout():
 	#print(get_viewport().get_visible_rect().size/2)
 	ms -=1
 	if ms == 0:
-		spawn_unit()
+		#spawn_unit()
 		ms=4

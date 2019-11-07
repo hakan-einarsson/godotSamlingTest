@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ZombieType.gd" type="Script" id=1]
 [ext_resource path="res://assets/skeleton.png" type="Texture" id=2]
-[ext_resource path="res://HealthPopupBar.tscn" type="PackedScene" id=3]
-[ext_resource path="res://SwordSwing.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SwordSwing.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ZombieHealthBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ZombieHealthBar.gd" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0777
@@ -55,11 +56,7 @@ editor/display_folded = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )
 
-[node name="ProgressBar" parent="." instance=ExtResource( 3 )]
-margin_top = -23.3419
-margin_bottom = -9.3418
-
-[node name="SwordSwing" parent="." instance=ExtResource( 4 )]
+[node name="SwordSwing" parent="." instance=ExtResource( 3 )]
 
 [node name="MeleeRange" type="Area2D" parent="."]
 editor/display_folded = true
@@ -70,6 +67,14 @@ shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="ZombieHealthBar" parent="." instance=ExtResource( 4 )]
+margin_left = -10.9174
+margin_top = -27.8606
+margin_right = 29.0826
+margin_bottom = -13.8605
+script = ExtResource( 5 )
+[connection signal="health_changed" from="." to="ZombieHealthBar" method="_on_ZombieType_health_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_MeleeRange_body_exited"]

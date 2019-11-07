@@ -9,6 +9,8 @@ var on_cooldown = false
 var ms = 8
 var speed = 50
 var animationState = "Down"
+var is_casting = false
+var spell = null
 
 var projektilScen = load("res://AntagonistProjektil.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
@@ -35,7 +37,7 @@ func _physics_process(delta):
 		speed = 100
 		set_animation(target.position)
 		if in_sight(target):
-			shoot()
+			cast_start(projektilScen)
 		path = get_tree().get_root().get_node("scene").return_path(target.position,position)
 		move_along_path(speed)
 	else:
@@ -75,10 +77,14 @@ func death():
 	get_parent().add_child(explosion)
 	get_parent().remove_child(self)
 
-func shoot():
-	if not on_cooldown and target.health > 0:
+func cast_start(spell_type): #det är här vi är. Dagens TODO är att fixa så att denna och cast bar funkar och att los fungerar korrekt och att denna unit håller range
+	if not is_casting and target.health > 0:
+		spell = spell_type.instance()
 		timer.start()
-		on_cooldown = true;
+		is_casting = true
+		
+
+func cast_complete():
 		var projektil = projektilScen.instance()
 		get_parent().add_child(projektil)
 		projektil.shoot(global_position,target.global_position,self)
