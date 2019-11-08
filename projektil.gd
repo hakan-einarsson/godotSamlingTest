@@ -5,6 +5,7 @@ var damage = 20
 var speed = 500
 var direction = Vector2()
 var source = null
+var cast_time = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +14,12 @@ func _ready():
 
 func _process(delta):
 	position+=direction*speed*delta
+	
+func get_cast_time():
+	return cast_time
+	
+func cancel():
+	queue_free()
 	
 	
 func shoot(start_pos,target,body):

@@ -10,6 +10,8 @@ var speed = 100
 var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
+var spell=null
+var is_casting=false
 
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 
@@ -22,9 +24,19 @@ signal health_changed(new_value)
 func _input(event):
 	movement.x = (int(Input.is_action_pressed("ui_right"))-int(Input.is_action_pressed("ui_left")))*speed
 	movement.y = (int(Input.is_action_pressed("ui_down"))-int(Input.is_action_pressed("ui_up")))*speed
-
-	if event.is_action_pressed("ui_accept"): 
-		shoot()
+	
+	
+	if event.is_action_pressed("ui_hit"): 
+		hit()
+	
+	if event.is_action_pressed("ui_cast"): 
+		cast_start(projektilScen)
+	
+	if event.is_action_pressed("ui_hit"): 
+		hit()
+	
+	if event.is_action_pressed("ui_hit"): 
+		hit()
 			
 		# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -34,6 +46,9 @@ func _physics_process(delta):
 	movement = move_and_slide(movement)
 	if health <=0:
 		death()
+		
+func hit():
+	print("hit")
 	
 
 func take_damage(amount,source):
@@ -55,13 +70,31 @@ func _on_Timer_timeout():
 			ms=3
 			on_cooldown=false
 			
-func shoot():
-	if not on_cooldown:
+func cast_start(spell_type):
+	if not is_casting:
+		spell = spell_type.instance()
+		cast_time = spell.get_cast_time()
+		cast_bar.set_cast_time(cast_time)
 		timer.start()
-		on_cooldown = true;
+		is_casting = true
+		
+func cancel_cast():
+	timer.stop()
+	is_casting = false
+	cast_time=0
+	ms=0
+	spell.cancel()
+	cast_bar.reset_cast_bar()
+	
+
+func cast_complete():
 		var projektil = projektilScen.instance()
 		get_parent().add_child(projektil)
-		projektil.shoot(global_position,get_global_mouse_position(),self)
+		projektil.shoot(global_position,target.global_position,self)
+		cast_time = 0
+		ms = 0
+		is_casting=false
+		cast_bar.reset_cast_bar()
 		
 func death():
 	var explosion = explosion_scen.instance()
