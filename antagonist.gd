@@ -7,7 +7,6 @@ onready var cast_bar = $CastBar
 var target = null
 var bodies_in_aggro_range=[]
 
-var on_cooldown = false
 var ms = 0
 var speed = 50
 var animationState = "Down"

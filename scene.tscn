@@ -26,15 +26,10 @@ position = Vector2( 663.554, 413.29 )
 collision_mask = 12
 
 [node name="protagonist" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 214.344, 419.256 )
 scale = Vector2( 2, 2 )
 collision_mask = 16
-
-[node name="CollisionShape2D" parent="protagonist" index="0"]
-editor/display_folded = true
-
-[node name="Sprite" parent="protagonist" index="2"]
-editor/display_folded = true
 
 [node name="Camera2D" parent="protagonist" index="3"]
 position = Vector2( 1.25873, 3.77631 )
@@ -50,6 +45,7 @@ position = Vector2( 288.11, 192.22 )
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+[connection signal="cooldown_update" from="protagonist" to="protagonist/CanvasLayer/Interface" method="_on_protagonist_cooldown_update"]
 [connection signal="health_changed" from="protagonist" to="protagonist/CanvasLayer/Interface" method="_on_protagonist_health_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

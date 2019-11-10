@@ -9,6 +9,7 @@
 [node name="TextureProgress" type="TextureProgress" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_scale = Vector2( 2, 2 )
 value = 40.0
 texture_under = ExtResource( 1 )
 texture_over = ExtResource( 2 )

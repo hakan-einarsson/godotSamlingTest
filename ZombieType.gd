@@ -29,19 +29,22 @@ func _physics_process(delta):
 	if direction == Vector2():
 		animator.stop()
 	if target_in_melee_range:
+		speed=0
 		hit()
 	else:
 		animator.play("Walk")
-	if target and target.health > 0:
-		path = get_tree().get_root().get_node("scene").return_path(target.position,position)
-		move_along_path(speed)
-	else:
-		if randi()%100==1:
-			direction = random_movement()
-		var movement = direction*speed*delta
-		var collision = move_and_collide(movement)
-		if collision:
-			direction = random_movement()
+		if target and target.health > 0:
+			speed=100
+			path = get_tree().get_root().get_node("scene").return_path(target.position,position)
+			move_along_path(speed)
+		else:
+			speed=50
+			if randi()%100==1:
+				direction = random_movement()
+			var movement = direction*speed*delta
+			var collision = move_and_collide(movement)
+			if collision:
+				direction = random_movement()
 	if health <= 0:
 		death()
 		

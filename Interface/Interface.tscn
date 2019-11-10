@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Interface/Interface.gd" type="Script" id=1]
 [ext_resource path="res://Interface/Healthbar.tscn" type="PackedScene" id=2]
@@ -7,47 +7,209 @@
 [ext_resource path="res://assets/potion.png" type="Texture" id=5]
 [ext_resource path="res://assets/boot.png" type="Texture" id=6]
 
+[sub_resource type="Theme" id=1]
+Label/colors/Background = Color( 0, 0, 0, 0.858824 )
+
 [node name="Interface" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.22772
-margin_right = 1.22778
+margin_left = 1.41174
+margin_right = 1.41187
 script = ExtResource( 1 )
 
 [node name="Healthbar" parent="." instance=ExtResource( 2 )]
-margin_left = 73.1711
-margin_top = 70.2442
-margin_right = 77.1711
-margin_bottom = 84.2442
+margin_left = 36.339
+margin_top = 38.323
+margin_right = 40.339
+margin_bottom = 52.323
 
-[node name="AttackButton" type="TextureButton" parent="."]
-margin_left = 29.5736
-margin_top = 544.046
-margin_right = 61.5736
-margin_bottom = 576.047
+[node name="Control" type="Control" parent="."]
+editor/display_folded = true
+margin_left = 30.867
+margin_top = 4.59416
+margin_right = 59.867
+margin_bottom = 33.5942
+
+[node name="AttackButton" type="TextureButton" parent="Control"]
+margin_left = -20.0
+margin_top = 520.0
+margin_right = 12.0
+margin_bottom = 552.001
+rect_scale = Vector2( 2, 2 )
 rect_clip_content = true
 texture_normal = ExtResource( 3 )
 
-[node name="RangedAttack" type="TextureButton" parent="."]
-margin_left = 61.5736
-margin_top = 544.046
-margin_right = 93.5736
-margin_bottom = 576.046
+[node name="ColorRect" type="ColorRect" parent="Control"]
+margin_left = 5.0
+margin_top = 513.0
+margin_right = 20.0
+margin_bottom = 528.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="RangedAttack" type="TextureButton" parent="Control"]
+margin_left = 44.0
+margin_top = 520.0
+margin_right = 76.0
+margin_bottom = 552.0
+rect_scale = Vector2( 2, 2 )
 rect_clip_content = true
 texture_normal = ExtResource( 4 )
 
-[node name="Potion" type="TextureButton" parent="."]
-margin_left = 93.5736
-margin_top = 544.046
-margin_right = 125.574
-margin_bottom = 576.046
+[node name="ColorRect2" type="ColorRect" parent="Control"]
+margin_left = 69.0
+margin_top = 513.0
+margin_right = 84.0
+margin_bottom = 528.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Potion" type="TextureButton" parent="Control"]
+margin_left = 108.0
+margin_top = 520.0
+margin_right = 140.0
+margin_bottom = 552.0
+rect_scale = Vector2( 2, 2 )
 rect_clip_content = true
 texture_normal = ExtResource( 5 )
 
-[node name="Dash" type="TextureButton" parent="."]
-margin_left = 125.574
-margin_top = 544.046
-margin_right = 157.574
-margin_bottom = 576.047
+[node name="ColorRect3" type="ColorRect" parent="Control"]
+margin_left = 133.0
+margin_top = 513.0
+margin_right = 148.0
+margin_bottom = 528.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Dash" type="TextureButton" parent="Control"]
+margin_left = 172.0
+margin_top = 520.0
+margin_right = 204.0
+margin_bottom = 552.001
+rect_scale = Vector2( 2, 2 )
 rect_clip_content = true
 texture_normal = ExtResource( 6 )
+
+[node name="ColorRect4" type="ColorRect" parent="Control"]
+margin_left = 197.0
+margin_top = 513.0
+margin_right = 212.0
+margin_bottom = 528.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="HitCooldown" type="ColorRect" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = 10.5465
+margin_top = 525.251
+margin_right = 74.5465
+margin_bottom = 589.251
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="Label" type="Label" parent="HitCooldown"]
+margin_right = 64.0
+margin_bottom = 64.0
+text = "60"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CastCooldown" type="ColorRect" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = 74.8116
+margin_top = 525.185
+margin_right = 138.812
+margin_bottom = 589.185
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="Label" type="Label" parent="CastCooldown"]
+margin_right = 64.0
+margin_bottom = 64.0
+text = "60"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PotCooldown" type="ColorRect" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = 138.752
+margin_top = 524.559
+margin_right = 202.752
+margin_bottom = 588.559
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="Label" type="Label" parent="PotCooldown"]
+margin_right = 64.0
+margin_bottom = 64.0
+text = "60"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DashCooldown" type="ColorRect" parent="."]
+editor/display_folded = true
+visible = false
+margin_left = 201.963
+margin_top = 525.333
+margin_right = 265.963
+margin_bottom = 589.333
+color = Color( 0, 0, 0, 0.686275 )
+
+[node name="Label" type="Label" parent="DashCooldown"]
+margin_right = 64.0
+margin_bottom = 64.0
+text = "60"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 35.867
+margin_top = 518.594
+margin_right = 49.867
+margin_bottom = 532.594
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "1"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 99.867
+margin_top = 518.594
+margin_right = 113.867
+margin_bottom = 532.594
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 163.867
+margin_top = 518.594
+margin_right = 177.867
+margin_bottom = 532.594
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="."]
+margin_left = 227.867
+margin_top = 518.594
+margin_right = 241.867
+margin_bottom = 532.594
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "4"
+align = 1
+valign = 1

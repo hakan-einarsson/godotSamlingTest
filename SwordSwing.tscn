@@ -33,6 +33,20 @@ tracks/1/keys = {
 "method": "toggle_visibility"
 } ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "swing_stop"
+} ]
+}
 
 [node name="SwordSwing" type="Sprite"]
 scale = Vector2( 2, 2 )
