@@ -255,13 +255,13 @@ func walking_sprite():
 	action_anim.visible=false
 
 func _on_MeleeRange_body_entered(body):
-	if body.name != "TileMap":
+	if body.name != "TileMap" and body.name != self.name:
 		targets_in_melee_range.append(body) # Replace with function body.
 	
 
 
 func _on_MeleeRange_body_exited(body):
-	if body.name != "TileMap":
+	if body.name != "TileMap" and body.name != self.name:
 		targets_in_melee_range.erase(body)
 	
 func dash_complete():

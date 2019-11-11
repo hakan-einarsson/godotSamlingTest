@@ -35,7 +35,7 @@ func _physics_process(delta):
 		animator.play("Walk")
 		if target and target.health > 0:
 			speed=100
-			path = get_tree().get_root().get_node("scene").return_path(target.position,position)
+			path = get_parent().return_path(target.position,position)
 			move_along_path(speed)
 		else:
 			speed=50
