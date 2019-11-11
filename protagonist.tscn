@@ -242,7 +242,6 @@ hframes = 6
 frame = 4
 
 [node name="BlueCircle" parent="ActionSprite" instance=ExtResource( 5 )]
-visible = false
 
 [node name="SwordSwing" parent="." instance=ExtResource( 6 )]
 

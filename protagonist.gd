@@ -10,6 +10,7 @@ onready var action_anim=$ActionSprite
 onready var sword_swing=$SwordSwing
 
 var target = null
+var target_marker=null
 
 var hit_cooldown_time = 5
 var hit_counter = 0
@@ -20,6 +21,7 @@ var movement = Vector2()
 var projektilScen = load("res://projektil.tscn")
 var explosion_scen = load("res://Explosion.tscn")
 var dash_target_scen = load("res://Target.tscn")
+var target_marker_scen = load("res://TargetMarker.tscn")
 
 var cooldowns = {"Hit":5,
 			"Drink":300,
@@ -104,13 +106,23 @@ func _input(event):
 		var space = get_world_2d().direct_space_state
 		var collision = space.intersect_point(get_global_mouse_position())
 		if collision:
+			if target:
+				target_marker.queue_free()
 			target = collision[0].collider
+			target_marker = target_marker_scen.instance()
+			get_parent().add_child(target_marker)
+			
 			
 			
 
 func _physics_process(delta):
-
-	set_animation(get_global_mouse_position())
+	if target:
+		target_marker.position = target.position
+		if target.health <= 0:
+			target=null
+			target_marker.queue_free()
+	if not is_casting:
+		set_animation(get_global_mouse_position())
 	if is_dashing:
 		if position != dash_position:
 			var angle_to = Vector2(cos(get_angle_to(dash_position)),sin(get_angle_to(dash_position)))
@@ -154,6 +166,8 @@ func cast_start(spell_type):
 		cast_time = spell.get_cast_time()
 		cast_bar.set_cast_time(cast_time)
 		cast_timer.start()
+		action_sprite()
+		animation_player.play("Cast")
 		is_casting = true
 		
 func cancel_cast():
@@ -175,6 +189,7 @@ func cast_complete():
 	cast_time_counter = 0
 	is_casting=false
 	cast_bar.reset_cast_bar()
+	walking_sprite()
 		
 func death():
 	var explosion = explosion_scen.instance()
@@ -275,3 +290,4 @@ func _on_DashTimer_timeout():
 		if cooldown_counters["Dash"] == cooldowns["Dash"]:
 			emit_signal("cooldown_update","Dash",time_left,true)
 			dash_cooldown_timer.stop()
+
