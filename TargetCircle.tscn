@@ -4,4 +4,4 @@
 
 [node name="TargetCircle" instance=ExtResource( 1 )]
 emission_sphere_radius = 30.11
-spread = 88.87
+spread = 80.0

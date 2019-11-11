@@ -6,7 +6,7 @@
 [ext_resource path="res://CastBar.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 6.60397
+radius = 13.6545
 height = 2.8719
 
 [sub_resource type="CircleShape2D" id=2]
@@ -91,6 +91,7 @@ shape = SubResource( 1 )
 [node name="AggroRange" type="Area2D" parent="."]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="AggroRange"]
+visible = false
 position = Vector2( 0.0131757, 0 )
 shape = SubResource( 2 )
 

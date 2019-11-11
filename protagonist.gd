@@ -8,6 +8,7 @@ onready var cast_bar = $ProgressBar
 onready var walk_anim=$Sprite
 onready var action_anim=$ActionSprite
 onready var sword_swing=$SwordSwing
+onready var blue_circle = $BlueCircle
 
 var target = null
 var target_marker=null
@@ -105,7 +106,7 @@ func _input(event):
 	if event.is_action_pressed("ui_accept") and not is_targeting:
 		var space = get_world_2d().direct_space_state
 		var collision = space.intersect_point(get_global_mouse_position())
-		if collision:
+		if collision and collision[0].collider.name != "TileMap":
 			if target:
 				target_marker.queue_free()
 			target = collision[0].collider
@@ -169,6 +170,7 @@ func cast_start(spell_type):
 		action_sprite()
 		animation_player.play("Cast")
 		is_casting = true
+		blue_circle.emitting=true
 		
 func cancel_cast():
 	cast_timer.stop()
@@ -177,6 +179,8 @@ func cancel_cast():
 	cast_time_counter=0
 	spell.cancel()
 	cast_bar.reset_cast_bar()
+	walking_sprite()
+	blue_circle.emitting=false
 	
 
 func cast_complete():
@@ -190,6 +194,7 @@ func cast_complete():
 	is_casting=false
 	cast_bar.reset_cast_bar()
 	walking_sprite()
+	blue_circle.emitting=false
 		
 func death():
 	var explosion = explosion_scen.instance()

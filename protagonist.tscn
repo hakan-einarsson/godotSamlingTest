@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://protagonist.gd" type="Script" id=1]
 [ext_resource path="res://assets/linkGreenOverworld.png" type="Texture" id=2]
 [ext_resource path="res://CastBar.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/LinkActionGreenOw.png" type="Texture" id=4]
-[ext_resource path="res://BlueCircle.tscn" type="PackedScene" id=5]
-[ext_resource path="res://SwordSwing.tscn" type="PackedScene" id=6]
+[ext_resource path="res://SwordSwing.tscn" type="PackedScene" id=5]
+[ext_resource path="res://BlueCircle.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.60009
@@ -193,10 +193,7 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=11]
-blend_mode = 1
-
-[sub_resource type="CircleShape2D" id=12]
+[sub_resource type="CircleShape2D" id=11]
 radius = 35.2023
 
 [node name="protagonist" type="KinematicBody2D"]
@@ -215,7 +212,7 @@ gradient = SubResource( 2 )
 texture_mode = -1086605071
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
+editor/display_folded = true
 texture = ExtResource( 2 )
 hframes = 8
 
@@ -236,21 +233,20 @@ current = true
 [node name="ProgressBar" parent="." instance=ExtResource( 3 )]
 
 [node name="ActionSprite" type="Sprite" parent="."]
-material = SubResource( 11 )
+visible = false
 texture = ExtResource( 4 )
 hframes = 6
 frame = 4
 
-[node name="BlueCircle" parent="ActionSprite" instance=ExtResource( 5 )]
-
-[node name="SwordSwing" parent="." instance=ExtResource( 6 )]
+[node name="SwordSwing" parent="." instance=ExtResource( 5 )]
 
 [node name="MeleeRange" type="Area2D" parent="."]
+editor/display_folded = true
 visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="CastTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -263,6 +259,9 @@ wait_time = 0.1
 
 [node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="BlueCircle" parent="." instance=ExtResource( 6 )]
+emitting = false
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_MeleeRange_body_exited"]
 [connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]
