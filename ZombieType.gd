@@ -112,13 +112,13 @@ func show_damage_text(damage):
 
 func _on_MeleeRange_body_entered(body):
 	if body == target:
-		print("entered melee range")
+		#print("entered melee range")
 		target_in_melee_range=true
 
 
 func _on_MeleeRange_body_exited(body):
 	if body == target:
-		print("exited melee range")
+		#print("exited melee range")
 		target_in_melee_range=false
 		swordSwing.swing_stop()
 

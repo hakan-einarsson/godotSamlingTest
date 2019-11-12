@@ -230,12 +230,12 @@ func angle_to_vector2(string):
 		return Vector2(0,1)
 
 func show_damage_text(damage):
-		var popupDamageText = PopupDamageObject.instance()
-		get_tree().get_root().add_child(popupDamageText)
-		popupDamageText.set_global_position(global_position)
-		popupDamageText.set_position_offset(-8,-20)
-		popupDamageText.set_damage_text(damage)
-		
+	var popupDamageText = PopupDamageObject.instance()
+	get_tree().get_root().add_child(popupDamageText)
+	popupDamageText.set_global_position(global_position)
+	popupDamageText.set_position_offset(-8,-20)
+	popupDamageText.set_damage_text(damage)
+	
 
 func _on_CastTimer_timeout():
 	cast_time_counter+=1
@@ -245,12 +245,10 @@ func _on_CastTimer_timeout():
 		cast_timer.stop()
 	
 func action_sprite():
-	print("action sprite")
 	walk_anim.visible=false
 	action_anim.visible=true
 
 func walking_sprite():
-	print("walking sprite")
 	walk_anim.visible=true
 	action_anim.visible=false
 

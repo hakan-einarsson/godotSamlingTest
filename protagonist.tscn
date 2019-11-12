@@ -211,7 +211,6 @@ points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
 width = 15.0
 default_color = Color( 1, 0.596078, 0.4, 1 )
 gradient = SubResource( 2 )
-texture_mode = -1086605071
 
 [node name="Sprite" type="Sprite" parent="."]
 editor/display_folded = true
