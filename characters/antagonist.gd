@@ -14,13 +14,13 @@ var is_casting = false
 var spell = null
 var cast_time=0
 
-var projektilScen = load("res://AntagonistProjektil.tscn")
+var projektilScen = load("res://spells/AntagonistProjektil.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 signal health_changed(new_value)
 
-var explosion_scen = load("res://Explosion.tscn")
-export var max_health = 100
-var health = 100
+var explosion_scen = load("res://assets/Explosion.tscn")
+export var max_health = 80
+var health = 80
 var direction = Vector2(0,1)
 var movement
 var path = PoolVector2Array() 
@@ -42,7 +42,7 @@ func _physics_process(delta):
 				cast_start(projektilScen)
 				animation_player.stop()
 			else:
-				path = get_tree().get_root().get_node("scene").return_path(target.position,position)
+				path = get_parent().return_path(target.position,position)
 				move_along_path(speed)
 		else:
 			if not in_sight(target):

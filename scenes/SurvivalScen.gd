@@ -3,8 +3,8 @@ extends Node2D
 onready var nav_2d = $Navigation2D
 onready var prot = $protagonist
 onready var map = $Navigation2D/TileMap
-var ant = load("res://antagonist.tscn")
-var zombie = load("res://ZombieType.tscn")
+var ant = load("res://characters/antagonist.tscn")
+var zombie = load("res://characters/ZombieType.tscn")
 var list_of_units=[ant,zombie]
 var spawn_counter = 9
 var phase = [10,9,8,7,6,5,4,3]
@@ -29,7 +29,7 @@ func spawn_unit():
 func _on_SpawnTimer_timeout():
 	spawn_counter+=1
 	print(spawn_counter)
-	if spawn_counter == phase[phase_counter] and scen_running:
+	if spawn_counter >= phase[phase_counter] and scen_running:
 		#print("phase: ",phase_counter," ",phase[phase_counter])
 		spawn_unit()
 		spawn_counter=0

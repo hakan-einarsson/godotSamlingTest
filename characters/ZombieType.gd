@@ -15,8 +15,8 @@ var ms = 8
 
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
-var explosion_scen = load("res://Explosion.tscn")
-var sword_scen = load("res://SwordSwing.tscn")
+var explosion_scen = load("res://assets/Explosion.tscn")
+#var sword_scen = load("res://spells/SwordSwing.tscn")
 signal health_changed(new_value)
 
 # Called when the node enters the scene tree for the first time.
@@ -34,7 +34,7 @@ func _physics_process(delta):
 	else:
 		animator.play("Walk")
 		if target and target.health > 0:
-			speed=100
+			speed=75
 			path = get_parent().return_path(target.position,position)
 			move_along_path(speed)
 		else:
@@ -127,5 +127,5 @@ func _on_Timer_timeout():
 	if on_cooldown:
 		ms-=1
 		if ms == 0:
-			ms=3
+			ms=10
 			on_cooldown=false

@@ -1,7 +1,7 @@
 extends Area2D
 
 # Declare member variables here. Examples:
-var damage = 20
+var damage = 40
 var speed = 500
 var direction = Vector2()
 var source = null

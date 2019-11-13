@@ -19,10 +19,10 @@ var health = 200
 var max_health=200
 var speed = 100
 var movement = Vector2()
-var projektilScen = load("res://projektil.tscn")
-var explosion_scen = load("res://Explosion.tscn")
-var dash_target_scen = load("res://Target.tscn")
-var target_marker_scen = load("res://TargetMarker.tscn")
+var projektilScen = load("res://spells/projektil.tscn")
+var explosion_scen = load("res://assets/Explosion.tscn")
+var dash_target_scen = load("res://Interface/Target.tscn")
+var target_marker_scen = load("res://Interface/TargetMarker.tscn")
 
 var cooldowns = {"Hit":5,
 			"Drink":300,

@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scene.gd" type="Script" id=1]
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
-[ext_resource path="res://antagonist.tscn" type="PackedScene" id=3]
-[ext_resource path="res://protagonist.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ZombieType.tscn" type="PackedScene" id=5]
+[ext_resource path="res://characters/antagonist.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/protagonist.tscn" type="PackedScene" id=4]
+[ext_resource path="res://characters/ZombieType.tscn" type="PackedScene" id=5]
 
 [node name="scene" type="Node2D"]
 script = ExtResource( 1 )
@@ -28,6 +28,9 @@ collision_mask = 12
 editor/display_folded = true
 position = Vector2( 214.344, 419.256 )
 collision_mask = 16
+
+[node name="Line2D" parent="protagonist/CollisionShape2D" index="0"]
+texture_mode = 875706424
 
 [node name="Camera2D" parent="protagonist" index="2"]
 position = Vector2( 1.25873, 3.77631 )

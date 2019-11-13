@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://projektil.tscn" type="PackedScene" id=1]
-[ext_resource path="res://AntagonistProjektil.gd" type="Script" id=2]
+[ext_resource path="res://spells/projektil.tscn" type="PackedScene" id=1]
+[ext_resource path="res://spells/AntagonistProjektil.gd" type="Script" id=2]
+
+
 
 [node name="Area2d" instance=ExtResource( 1 )]
 editor/display_folded = true
