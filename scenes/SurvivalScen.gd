@@ -11,7 +11,6 @@ var phase = [10,9,8,7,6,5,4,3]
 var phase_counter = 0
 var scen_running = true
 
-
 func return_path(unit, target):
 	var simple_path = nav_2d.get_simple_path(target,unit,false)
 	return simple_path
@@ -23,8 +22,6 @@ func spawn_unit():
 	print("added unit at",unit_position)
 	add_child(unit)
 	unit.set_position(unit_position)
-	
-
 
 func _on_SpawnTimer_timeout():
 	spawn_counter+=1
