@@ -186,7 +186,7 @@ func cancel_cast():
 func cast_complete():
 	get_parent().add_child(spell)
 	if target:
-		spell.shoot(global_position,target.global_position,self)
+		spell.shoot(global_position,target,self)
 	else:
 		spell.shoot(global_position,get_global_mouse_position(),self)
 	cast_time = 0

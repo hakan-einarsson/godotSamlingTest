@@ -108,7 +108,7 @@ func cancel_cast():
 func cast_complete():
 		var projektil = projektilScen.instance()
 		get_parent().add_child(projektil)
-		projektil.shoot(global_position,target.global_position,self)
+		projektil.shoot(global_position,target,self)
 		cast_time = 0
 		ms = 0
 		is_casting=false
