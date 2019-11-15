@@ -15,5 +15,9 @@ func set_position(start_pos):
 	position = start_pos
 
 func _on_DragonFireTarget_body_entered(body):
-	print(body.name," entered")
+	
+	queue_free()
+
+
+func _on_DragonFireTarget_area_entered(area):
 	queue_free()

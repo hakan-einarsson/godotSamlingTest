@@ -30,7 +30,6 @@ func shoot(start_pos,spell_target, body):
 	self.global_position=start_pos
 	direction = (target - start_pos).normalized()
 	create_target_area()
-	print(self.name)
 	
 func get_cast_time():
 	return cast_time
@@ -54,4 +53,10 @@ func on_impact_scatter():
 	for dir in directions_scatter:
 		var dragon_fire_scatter = dragon_fire_scatter_scen.instance()
 		get_parent().add_child(dragon_fire_scatter)
+		dragon_fire_scatter.set_position(position)
 		dragon_fire_scatter.set_direction(dir)
+
+
+func _on_DragonFire_area_entered(area):
+	if area.name == "DragonFireTarget":
+		on_impact_scatter()

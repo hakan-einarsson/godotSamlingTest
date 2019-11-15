@@ -16,8 +16,14 @@ func _process(delta):
 
 func set_direction(vector_direction):
 	direction = vector_direction
+	
+func set_position(start_pos):
+	position = start_pos
 
-func _on_DragonFire_body_entered(body):
+
+
+func _on_DragonFireScatter_body_entered(body):
 	queue_free()
 	if body.get_name() != "TileMap":
 		body.take_damage(damage,body)
+
