@@ -28,11 +28,9 @@ func cancel():
 	
 
 func shoot(start_pos,spell_target,body):
-	print(typeof(start_pos)==TYPE_VECTOR2)
 	source = body
 	self.global_position=start_pos
 	if typeof(spell_target)==TYPE_VECTOR2:
-		print("target is position")
 		direction = (spell_target - start_pos).normalized()
 		rotate(get_angle_to(spell_target))
 	else:
