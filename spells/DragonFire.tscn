@@ -22,7 +22,7 @@ colors = PoolColorArray( 0.429688, 0.0704956, 0, 1, 0.734375, 0.414341, 0.131958
 
 [node name="DragonFire" type="Area2D"]
 collision_layer = 16
-collision_mask = 37
+collision_mask = 33
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -61,5 +61,4 @@ emission_sphere_radius = 1.0
 gravity = Vector2( 0, 0 )
 tangential_accel = 33.66
 color_ramp = SubResource( 5 )
-[connection signal="area_entered" from="." to="." method="_on_DragonFire_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_DragonFire_body_entered"]

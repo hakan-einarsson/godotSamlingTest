@@ -8,11 +8,6 @@
 [ext_resource path="res://assets/BlueCircle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Interface/Interface.tscn" type="PackedScene" id=7]
 
-
-
-
-
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.60009
 
@@ -216,6 +211,7 @@ points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
 width = 15.0
 default_color = Color( 1, 0.596078, 0.4, 1 )
 gradient = SubResource( 2 )
+texture_mode = 875706424
 
 [node name="Sprite" type="Sprite" parent="."]
 editor/display_folded = true

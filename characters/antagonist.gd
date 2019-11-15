@@ -15,7 +15,6 @@ var spell = null
 var cast_time=0
 
 var projektilScen = load("res://spells/AntagonistProjektil.tscn")
-var dragon_fire_scen = load("res://spells/DragonFire.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 signal health_changed(new_value)
 
@@ -40,7 +39,7 @@ func _physics_process(delta):
 		set_animation(target.position)
 		if not is_casting:
 			if in_sight(target):
-				cast_start(dragon_fire_scen)
+				cast_start(projektilScen)
 				animation_player.stop()
 			else:
 				path = get_parent().return_path(target.position,position)
@@ -107,7 +106,7 @@ func cancel_cast():
 	
 
 func cast_complete():
-		var projektil = dragon_fire_scen.instance()
+		var projektil = projektilScen.instance()
 		get_parent().add_child(projektil)
 		projektil.shoot(global_position,target,self)
 		cast_time = 0

@@ -7,7 +7,12 @@ var ant = load("res://antagonist.tscn")
 var zombie = load("res://ZombieType.tscn")
 var list_of_units=[ant,zombie]
 var ms = 2
+var units = []
 
+
+func return_units():
+	units = get_children()
+	return units
 
 func return_path(unit, target):
 	var simple_path = nav_2d.get_simple_path(target,unit,false)
@@ -20,7 +25,7 @@ func spawn_unit():
 	print(map.get_cell(unit_position.x,unit_position.y))
 	var space = get_world_2d().get_direct_space_state()
 	var result = space.intersect_point(unit_position,32,[],214783647,false,true)
-	if (not result.empty()): 
+	if (not result.empty()):
 		print("Hit at point:",result)
 		get_tree().get_root().add_child(unit)
 		unit.set_position(unit_position)

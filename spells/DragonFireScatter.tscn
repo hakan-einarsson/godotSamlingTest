@@ -21,7 +21,7 @@ offsets = PoolRealArray( 0, 0.860927, 1 )
 colors = PoolColorArray( 0.429688, 0.0704956, 0, 1, 0.734375, 0.414341, 0.131958, 1, 0.980469, 0.961558, 0.677902, 1 )
 
 [node name="DragonFireScatter" type="Area2D"]
-scale = Vector2( 0.25, 0.25 )
+scale = Vector2( 0.5, 0.5 )
 collision_layer = 16
 collision_mask = 5
 script = ExtResource( 1 )
