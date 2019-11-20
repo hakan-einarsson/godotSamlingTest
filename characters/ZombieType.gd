@@ -129,3 +129,6 @@ func _on_Timer_timeout():
 		if ms == 0:
 			ms=10
 			on_cooldown=false
+			
+func set_target(body):
+	target=body

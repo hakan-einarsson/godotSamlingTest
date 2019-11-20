@@ -14,10 +14,11 @@ var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var direction = Vector2()
 var phase = 0
-var max_health=2000
-var health = 2000
+var max_health=500
+var health = max_health
 var animationState = "Down"
 var collision_shape_rotated = false
+var alive = true
 
 signal health_changed(new_value)
 
@@ -33,32 +34,40 @@ var speed = 100
 
 
 func _ready():
-	for unit in get_parent().return_units():
-		if unit.name=="protagonist":
-			target = unit
+	animation_player.play(animationState)
+	#for unit in get_parent().return_units():
+		#if unit.name=="protagonist":
+			#target = unit
 
 
 
 func _physics_process(delta):
-	casting_spell=dragon_fire_scen
-	set_animation(target.position)
-	if is_casting and (cast_time-cast_time_counter) < 5:
-		animation_player.play("Shoot"+animationState)
-	if position.distance_to(target.position) > 300 or not in_sight(target):
-		if is_casting:
-			cancel_cast()
-			is_casting=false
-		path = get_parent().return_path(target.position,position)
-		move_along_path(speed)
-			
-	else:
-		if is_casting:
-			if cast_time_counter==cast_time:
-				cast_complete()
+	if target and target.health > 0 and alive:
+		casting_spell=dragon_fire_scen
+		set_animation(target.position)
+		if is_casting and (cast_time-cast_time_counter) < 5:
+			animation_player.play("Shoot"+animationState)
+		if position.distance_to(target.position) > 300 or not in_sight(target):
+			if is_casting:
+				cancel_cast()
 				is_casting=false
+			path = get_parent().return_path(target.position,position)
+			move_along_path(speed)
+				
 		else:
-			cast_start(casting_spell)
-			is_casting=true
+			if is_casting:
+				if cast_time_counter==cast_time:
+					cast_complete()
+					is_casting=false
+			else:
+				cast_start(casting_spell)
+				is_casting=true
+	if health <=0:
+		death()
+		
+func death():
+	alive=false
+	animation_player.play("Die")
 			
 func move_along_path(distance):
 	direction = Vector2(cos(get_angle_to(path[1])),sin(get_angle_to(path[1])))
@@ -155,11 +164,18 @@ func in_sight(body):
 	var space_state = get_world_2d().direct_space_state
 	#print(position, body.position)
 	if body.position != position:
-		var result = space_state.intersect_ray(position, body.position,[self])
-		if result:
-			if result.collider.name == "protagonist" or result.collider.name=="ZombieType" or result.collider.name=="antagonist":
-				return true
-			else:
-				return false
+		var result = space_state.intersect_ray(position, body.position,[self],5)
+		if result and result.collider.name != "TileMap":
+			print(result.collider.name)
+			#if result.collider.name == "protagonist" or result.collider.name=="ZombieType" or result.collider.name=="antagonist":
+			return true
+		else:
+			return false
 
 
+
+
+func _on_Area2D_body_entered(body):
+	if body.name=="protagonist":
+		target=body
+		get_parent().spawn_timer.start()

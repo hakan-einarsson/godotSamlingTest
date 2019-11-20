@@ -232,6 +232,7 @@ anims/Up = SubResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 1.5, 1.5 )
 
 [node name="ProgressBar" parent="." instance=ExtResource( 3 )]
 margin_left = -21.4137

@@ -111,6 +111,8 @@ func _input(event):
 				target_marker.queue_free()
 			target = collision[0].collider
 			target_marker = target_marker_scen.instance()
+			if target.name=="Dragon":
+				target_marker.set_scale(Vector2(2,2))
 			get_parent().add_child(target_marker)
 			
 			
