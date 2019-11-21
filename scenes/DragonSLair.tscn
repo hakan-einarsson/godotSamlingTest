@@ -19,7 +19,12 @@ position = Vector2( 468.069, 157.081 )
 
 [node name="protagonist" parent="." instance=ExtResource( 4 )]
 position = Vector2( 462.751, 576.331 )
+z_index = 1
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="LavapoolTimer" type="Timer" parent="."]
+wait_time = 2.0
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="LavapoolTimer" to="." method="_on_LavapoolTimer_timeout"]

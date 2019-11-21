@@ -13,12 +13,12 @@ var dragon_fire_scen = load("res://spells/DragonFire.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var direction = Vector2()
-var phase = 0
-var max_health=500
+var max_health=400
 var health = max_health
 var animationState = "Down"
 var collision_shape_rotated = false
 var alive = true
+var phase = 1
 
 signal health_changed(new_value)
 
@@ -42,28 +42,47 @@ func _ready():
 
 
 func _physics_process(delta):
-	if target and target.health > 0 and alive:
-		casting_spell=dragon_fire_scen
-		set_animation(target.position)
-		if is_casting and (cast_time-cast_time_counter) < 5:
-			animation_player.play("Shoot"+animationState)
-		if position.distance_to(target.position) > 300 or not in_sight(target):
-			if is_casting:
-				cancel_cast()
-				is_casting=false
-			path = get_parent().return_path(target.position,position)
-			move_along_path(speed)
-				
-		else:
-			if is_casting:
-				if cast_time_counter==cast_time:
-					cast_complete()
-					is_casting=false
-			else:
-				cast_start(casting_spell)
-				is_casting=true
 	if health <=0:
 		death()
+	if alive:
+		phase = floor(1/(float(health)/max_health))
+
+	if target and target.health > 0 and alive:
+		if phase == 1:
+			casting_spell=dragon_fire_scen
+			set_animation(target.position)
+			if is_casting and (cast_time-cast_time_counter) < 5:
+				animation_player.play("Shoot"+animationState)
+			if position.distance_to(target.position) > 400 or not in_sight(target):
+				if is_casting:
+					cancel_cast()
+					is_casting=false
+				path = get_parent().return_path(target.position,position)
+				move_along_path(speed)
+			else:
+				if is_casting:
+					if cast_time_counter==cast_time:
+						cast_complete()
+						is_casting=false
+				else:
+					if position.distance_to(target.position) <= 300:
+						cast_start(casting_spell)
+						is_casting=true
+					else:
+						path = get_parent().return_path(target.position,position)
+						move_along_path(speed)
+		if phase >= 2 and phase < 5:
+			if not position.y < 290:
+				path = get_parent().return_path(Vector2(460,270),position)
+				set_animation(Vector2(460,270))
+				move_along_path(speed)
+			else:
+				animation_player.play("Down")
+			
+						
+	
+
+		
 		
 func death():
 	alive=false
@@ -108,13 +127,13 @@ func cancel_cast():
 	
 
 func cast_complete():
-		var projektil = casting_spell.instance()
-		get_parent().add_child(projektil)
-		projektil.shoot(global_position,target,self)
-		cast_time = 0
-		cast_time_counter = 0
-		is_casting=false
-		cast_bar.reset_cast_bar()
+	var projektil = casting_spell.instance()
+	get_parent().add_child(projektil)
+	projektil.shoot(global_position,target,self)
+	cast_time = 0
+	cast_time_counter = 0
+	is_casting=false
+	cast_bar.reset_cast_bar()
 		
 func _on_CastTimer_timeout():
 	cast_time_counter+=1
@@ -166,8 +185,6 @@ func in_sight(body):
 	if body.position != position:
 		var result = space_state.intersect_ray(position, body.position,[self],5)
 		if result and result.collider.name != "TileMap":
-			print(result.collider.name)
-			#if result.collider.name == "protagonist" or result.collider.name=="ZombieType" or result.collider.name=="antagonist":
 			return true
 		else:
 			return false

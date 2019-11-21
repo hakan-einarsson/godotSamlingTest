@@ -15,8 +15,8 @@ var target_marker=null
 
 var hit_cooldown_time = 5
 var hit_counter = 0
-var health = 200
-var max_health=200
+var health = 2000
+var max_health=2000
 var speed = 100
 var movement = Vector2()
 var projektilScen = load("res://spells/projektil.tscn")
