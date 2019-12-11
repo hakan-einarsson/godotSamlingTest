@@ -1,21 +1,230 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/titlescreen.gd" type="Script" id=1]
+[ext_resource path="res://assets/LinkActionGreenOw.png" type="Texture" id=2]
+[ext_resource path="res://assets/TjockisBlue.png" type="Texture" id=3]
+[ext_resource path="res://assets/skeleton.png" type="Texture" id=4]
+[ext_resource path="res://assets/triforce.png" type="Texture" id=5]
+[ext_resource path="res://assets/textTitle.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
-resource_name = "fadeaway"
+resource_name = "Blink"
 length = 3.0
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0, 360.0, 720.0, 1080.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 497, 300 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 3, 3 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "startTextAnimation"
+} ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Move"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Blink"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 720.0, 1080.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1024, 0 ), Vector2( 527, 300 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 3, 3 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Move"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Blink"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 720.0, 1080.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 0 ), Vector2( 512, 271 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 3, 3 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Move"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Blink"
+
+[sub_resource type="Animation" id=8]
+resource_name = "Flash"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Scale"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 2, 2 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("..")
@@ -24,36 +233,139 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 3 ),
+"times": PoolRealArray( 1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "nextScene"
+"method": "showButtons"
 } ]
 }
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
 
 [node name="titlescreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -7.36841
+margin_bottom = -7.36841
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label" type="Label" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -54.5
-margin_top = -7.0
-margin_right = 54.5
-margin_bottom = 7.0
-text = "production name"
+[node name="Prot" type="Sprite" parent="."]
+position = Vector2( 512, 400 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 2 )
+hframes = 6
+frame = 4
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
-autoplay = "fadeaway"
-anims/fadeaway = SubResource( 1 )
+[node name="Blue" type="Sprite" parent="."]
+position = Vector2( 392, 385 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+hframes = 8
+frame = 3
+
+[node name="Skel" type="Sprite" parent="."]
+position = Vector2( 632, 385 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+hframes = 2
+
+[node name="Triforce" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( 349.741, 211.111 )
+rotation = 12.5664
+scale = Vector2( 2.14074, 2.14074 )
+texture = ExtResource( 5 )
+vframes = 2
+frame = 1
+
+[node name="AnimationMove" type="AnimationPlayer" parent="Triforce"]
+autoplay = "Blink"
+anims/Blink = SubResource( 1 )
+
+[node name="AnimationBlink" type="AnimationPlayer" parent="Triforce"]
+autoplay = "Move"
+anims/Move = SubResource( 2 )
+
+[node name="Triforce2" type="Sprite" parent="."]
+editor/display_folded = true
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+vframes = 2
+frame = 1
+
+[node name="AnimationMove" type="AnimationPlayer" parent="Triforce2"]
+autoplay = "Blink"
+anims/Blink = SubResource( 3 )
+
+[node name="AnimationBlink" type="AnimationPlayer" parent="Triforce2"]
+autoplay = "Move"
+anims/Move = SubResource( 4 )
+
+[node name="Triforce3" type="Sprite" parent="."]
+editor/display_folded = true
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+vframes = 2
+frame = 1
+
+[node name="AnimationMove" type="AnimationPlayer" parent="Triforce3"]
+autoplay = "Blink"
+anims/Blink = SubResource( 5 )
+
+[node name="AnimationBlink" type="AnimationPlayer" parent="Triforce3"]
+autoplay = "Move"
+anims/Move = SubResource( 6 )
+
+[node name="Title" type="Sprite" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 512, 150 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 6 )
+vframes = 3
+frame = 1
+
+[node name="AnimationBlink" type="AnimationPlayer" parent="Title"]
+autoplay = "Flash"
+anims/Blink = SubResource( 7 )
+anims/Flash = SubResource( 8 )
+
+[node name="AnimationScale" type="AnimationPlayer" parent="Title"]
+anims/Scale = SubResource( 9 )
+
+[node name="btnNewGame" type="Button" parent="."]
+visible = false
+margin_left = 412.0
+margin_top = 225.0
+margin_right = 494.0
+margin_bottom = 245.0
+custom_styles/normal = SubResource( 10 )
+custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_hover = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_pressed = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "New Game"
+
+[node name="btnQuit" type="Button" parent="."]
+visible = false
+margin_left = 530.0
+margin_top = 225.0
+margin_right = 612.0
+margin_bottom = 245.0
+custom_styles/normal = SubResource( 11 )
+custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_hover = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_pressed = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "Quit"
+[connection signal="gui_input" from="btnNewGame" to="." method="_on_btnNewGame_gui_input"]
+[connection signal="gui_input" from="btnQuit" to="." method="_on_btnQuit_gui_input"]
