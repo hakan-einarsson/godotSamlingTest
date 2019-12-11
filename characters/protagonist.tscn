@@ -195,7 +195,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=11]
-radius = 35.2023
+radius = 47.5
 
 [node name="protagonist" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -252,9 +252,6 @@ frame = 4
 scale = Vector2( 3, 3 )
 
 [node name="MeleeRange" type="Area2D" parent="."]
-editor/display_folded = true
-visible = false
-scale = Vector2( 2, 2 )
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]

@@ -107,13 +107,14 @@ func _input(event):
 		var space = get_world_2d().direct_space_state
 		var collision = space.intersect_point(get_global_mouse_position())
 		if collision and collision[0].collider.name != "TileMap":
-			if target:
-				target_marker.queue_free()
-			target = collision[0].collider
-			target_marker = target_marker_scen.instance()
-			if target.name=="Dragon":
-				target_marker.set_scale(Vector2(2,2))
-			get_parent().add_child(target_marker)
+			if collision[0].collider.name != "protagonist":
+				if target:
+					target_marker.queue_free()
+				target = collision[0].collider
+				target_marker = target_marker_scen.instance()
+				if target.name=="Dragon":
+					target_marker.set_scale(Vector2(2,2))
+				get_parent().add_child(target_marker)
 			
 			
 			
