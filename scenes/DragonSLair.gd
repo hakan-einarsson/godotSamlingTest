@@ -5,10 +5,12 @@ onready var nav_2d = $Navigation2D
 onready var spawn_timer=$SpawnTimer
 onready var lavapool_timer=$LavapoolTimer
 onready var protagonist = $protagonist
+#onready var dragon = $Dragon
 var zombie = load("res://characters/ZombieType.tscn")
 var lavapool = load("res://spells/Lavapool.tscn")
+#var shock_wave_bolt=load("res://spells/ShockWaveBolt.tscn")
 
-# 460,270 center, radie 200
+
 
 # Called when the node enters the scene tree for the first time.
 func return_path(unit, target):

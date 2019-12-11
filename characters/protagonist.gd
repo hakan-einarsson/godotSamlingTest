@@ -13,10 +13,10 @@ onready var blue_circle = $BlueCircle
 var target = null
 var target_marker=null
 
-var hit_cooldown_time = 5
+#var hit_cooldown_time = 5
 var hit_counter = 0
-var health = 2000
-var max_health=2000
+var max_health=400
+var health = max_health
 var speed = 100
 var movement = Vector2()
 var projektilScen = load("res://spells/projektil.tscn")
@@ -41,7 +41,7 @@ var is_targeting=false
 var dash_target=null
 var dash_position = Vector2()
 var dash_speed = 500
-var dash_on_cooldown=false
+#var dash_on_cooldown=false
 
 
 var targets_in_melee_range=[]

@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var speed = 50
 var max_health = 60
-var health = 60
+var health = max_health
 var path = PoolVector2Array() 
 onready var animator = $Sprite/AnimationPlayer
 onready var swordSwing = $ZombieSwordSwing

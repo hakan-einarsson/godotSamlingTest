@@ -188,6 +188,10 @@ margin_bottom = -34.9624
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 9 )
+
+[node name="BoltTimer" type="Timer" parent="."]
+wait_time = 0.05
 [connection signal="health_changed" from="." to="DragonHealthBar" method="_on_Dragon_health_changed"]
 [connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="BoltTimer" to="." method="_on_BoltTimer_timeout"]

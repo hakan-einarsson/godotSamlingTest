@@ -34,5 +34,4 @@ func _on_Timer_timeout():
 	
 
 
-func _on_ZombieType_health_changed(new_value):
-	pass # Replace with function body.
+

@@ -7,18 +7,20 @@ onready var cast_timer = $CastTimer
 onready var sprite = $Sprite
 onready var cast_bar = $CastBar
 onready var collision_shape = $CollisionShape2D
+onready var bolt_timer = $BoltTimer
 
 
 var dragon_fire_scen = load("res://spells/DragonFire.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var direction = Vector2()
-var max_health=400
+var max_health=1000
 var health = max_health
 var animationState = "Down"
 var collision_shape_rotated = false
 var alive = true
 var phase = 1
+var phase2 = false
 
 signal health_changed(new_value)
 
@@ -31,14 +33,32 @@ var cast_time_counter = 0
 var casting_spell=null
 var path=[]
 var speed = 100
+#var point_straight_down=Vector2()
+var radius = 450/PI
+#var rad_shock = Vector2(0,1)*radius
+var shock_wave_bolt = load("res://spells/ShockWaveBolt.tscn")
+var bolt_angle=1
 
 
 func _ready():
+
 	animation_player.play(animationState)
 	#for unit in get_parent().return_units():
 		#if unit.name=="protagonist":
 			#target = unit
 
+func set_direction_of_bolt(pos,ang,rad):
+	var dir = Vector2(cos(ang),sin(ang))
+	var spos = pos + dir*rad
+	return [dir, spos]
+
+func shock_wave():
+	#var point_straight_down=position+rad_shock
+	var bolt = shock_wave_bolt.instance()
+	var props = set_direction_of_bolt(position,bolt_angle*2,radius)
+	get_parent().add_child(bolt)
+	bolt.set_position_and_direction(props[1],props[0])
+	bolt_angle=rand_range(0,360)
 
 
 func _physics_process(delta):
@@ -53,22 +73,21 @@ func _physics_process(delta):
 			set_animation(target.position)
 			if is_casting and (cast_time-cast_time_counter) < 5:
 				animation_player.play("Shoot"+animationState)
-			if position.distance_to(target.position) > 400 or not in_sight(target):
+			if position.distance_to(target.position) > 400 or not in_sight(target): #den här gör att han ibland kastar när han rör sig...
 				if is_casting:
 					cancel_cast()
-					is_casting=false
 				path = get_parent().return_path(target.position,position)
 				move_along_path(speed)
 			else:
 				if is_casting:
 					if cast_time_counter==cast_time:
 						cast_complete()
-						is_casting=false
 				else:
 					if position.distance_to(target.position) <= 300:
 						cast_start(casting_spell)
-						is_casting=true
 					else:
+						if is_casting:
+							cancel_cast()
 						path = get_parent().return_path(target.position,position)
 						move_along_path(speed)
 		if phase >= 2 and phase < 5:
@@ -77,7 +96,11 @@ func _physics_process(delta):
 				set_animation(Vector2(460,270))
 				move_along_path(speed)
 			else:
-				animation_player.play("Down")
+				if not phase2:
+					animation_player.play("Down")
+					bolt_timer.start()
+					get_parent().lavapool_timer.start()
+					phase2 = true
 			
 						
 	
@@ -194,5 +217,10 @@ func in_sight(body):
 
 func _on_Area2D_body_entered(body):
 	if body.name=="protagonist":
+		
 		target=body
 		get_parent().spawn_timer.start()
+
+
+func _on_BoltTimer_timeout():
+	shock_wave()

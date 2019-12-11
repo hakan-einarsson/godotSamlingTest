@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var animation_player = $Sprite/AnimationPlayer
-onready var timer = $Timer
+#onready var timer = $Timer
 var target = null
 var time = 10
 var damage = 25

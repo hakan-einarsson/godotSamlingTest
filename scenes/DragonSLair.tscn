@@ -18,11 +18,11 @@ tile_data = PoolIntArray( 10, 6, 0, 11, 6, 0, 12, 6, 0, 13, 6, 0, 14, 6, 0, 15, 
 position = Vector2( 468.069, 157.081 )
 
 [node name="protagonist" parent="." instance=ExtResource( 4 )]
-position = Vector2( 462.751, 576.331 )
+position = Vector2( 466.664, 605.7 )
 z_index = 1
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 15.0
 
 [node name="LavapoolTimer" type="Timer" parent="."]
 wait_time = 2.0
