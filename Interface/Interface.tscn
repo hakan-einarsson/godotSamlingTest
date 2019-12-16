@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Interface/Interface.gd" type="Script" id=1]
 [ext_resource path="res://Interface/Healthbar.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/frostbolt.png" type="Texture" id=4]
 [ext_resource path="res://assets/potion.png" type="Texture" id=5]
 [ext_resource path="res://assets/boot.png" type="Texture" id=6]
+[ext_resource path="res://assets/key.png" type="Texture" id=7]
 
 [sub_resource type="Theme" id=1]
 Label/colors/Background = Color( 0, 0, 0, 0.858824 )
@@ -24,7 +25,6 @@ margin_right = 40.339
 margin_bottom = 52.323
 
 [node name="Control" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 30.867
 margin_top = 4.59416
 margin_right = 59.867
@@ -94,8 +94,31 @@ margin_right = 212.0
 margin_bottom = 528.0
 color = Color( 0, 0, 0, 1 )
 
+[node name="key_field" type="ColorRect" parent="Control"]
+visible = false
+margin_left = 919.0
+margin_right = 973.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 0.45098 )
+
+[node name="TextureRect" type="TextureRect" parent="Control/key_field"]
+margin_left = 4.46301
+margin_top = 4.0
+margin_right = 20.463
+margin_bottom = 36.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="key_count" type="Label" parent="Control/key_field"]
+margin_left = 28.6537
+margin_top = 6.65369
+margin_right = 36.6537
+margin_bottom = 20.6537
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "0"
+
 [node name="HitCooldown" type="ColorRect" parent="."]
-editor/display_folded = true
 visible = false
 margin_left = 10.5465
 margin_top = 525.251
@@ -104,6 +127,7 @@ margin_bottom = 589.251
 color = Color( 0, 0, 0, 0.686275 )
 
 [node name="Label" type="Label" parent="HitCooldown"]
+visible = false
 margin_right = 64.0
 margin_bottom = 64.0
 text = "60"

@@ -68,7 +68,10 @@ func _physics_process(delta):
 		phase = floor(1/(float(health)/max_health))
 
 	if target and target.health > 0 and alive:
-		if phase == 1:
+		if phase == 1 or phase > 5:
+			if phase > 5:
+				phase2=false
+				bolt_timer.stop()
 			casting_spell=dragon_fire_scen
 			set_animation(target.position)
 			if is_casting and (cast_time-cast_time_counter) < 5:
@@ -101,6 +104,7 @@ func _physics_process(delta):
 					bolt_timer.start()
 					get_parent().lavapool_timer.start()
 					phase2 = true
+		
 			
 						
 	

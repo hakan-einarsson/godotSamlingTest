@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://characters/protagonist.gd" type="Script" id=1]
 [ext_resource path="res://assets/linkGreenOverworld.png" type="Texture" id=2]
@@ -9,12 +9,9 @@
 [ext_resource path="res://Interface/Interface.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 6.60009
+radius = 8.0
 
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 0.199219, 0.0381317, 0.0381317, 1, 0.0645752, 0.117547, 0.359375, 1 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Cast"
 length = 0.5
 loop = true
@@ -31,7 +28,7 @@ tracks/0/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -47,7 +44,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "HitDown"
 length = 0.5
 tracks/0/type = "value"
@@ -80,7 +77,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "HitLeft"
 length = 0.5
 tracks/0/type = "value"
@@ -113,7 +110,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "HitUp"
 length = 0.5
 tracks/0/type = "value"
@@ -146,7 +143,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -162,7 +159,7 @@ tracks/0/keys = {
 "values": [ 6, 7 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=8]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -178,7 +175,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=9]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -194,24 +191,16 @@ tracks/0/keys = {
 "values": [ 2, 3 ]
 }
 
-[sub_resource type="CircleShape2D" id=11]
+[sub_resource type="CircleShape2D" id=10]
 radius = 47.5
 
 [node name="protagonist" type="KinematicBody2D"]
+z_index = 1
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-editor/display_folded = true
 scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
-
-[node name="Line2D" type="Line2D" parent="CollisionShape2D"]
-visible = false
-points = PoolVector2Array( 0, 10, 0, 10, 0, -10 )
-width = 15.0
-default_color = Color( 1, 0.596078, 0.4, 1 )
-gradient = SubResource( 2 )
-texture_mode = 875706424
 
 [node name="Sprite" type="Sprite" parent="."]
 editor/display_folded = true
@@ -220,15 +209,15 @@ texture = ExtResource( 2 )
 hframes = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Cast = SubResource( 3 )
-anims/Down = SubResource( 4 )
-anims/HitDown = SubResource( 5 )
-anims/HitLeft = SubResource( 6 )
-anims/HitRight = SubResource( 6 )
-anims/HitUp = SubResource( 7 )
-anims/Left = SubResource( 8 )
-anims/Right = SubResource( 9 )
-anims/Up = SubResource( 10 )
+anims/Cast = SubResource( 2 )
+anims/Down = SubResource( 3 )
+anims/HitDown = SubResource( 4 )
+anims/HitLeft = SubResource( 5 )
+anims/HitRight = SubResource( 5 )
+anims/HitUp = SubResource( 6 )
+anims/Left = SubResource( 7 )
+anims/Right = SubResource( 8 )
+anims/Up = SubResource( 9 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -252,10 +241,11 @@ frame = 4
 scale = Vector2( 3, 3 )
 
 [node name="MeleeRange" type="Area2D" parent="."]
+editor/display_folded = true
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeRange"]
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="CastTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -273,14 +263,20 @@ wait_time = 0.1
 scale = Vector2( 2, 2 )
 emitting = false
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Interface" parent="CanvasLayer" instance=ExtResource( 7 )]
 [connection signal="cooldown_update" from="." to="CanvasLayer/Interface" method="_on_protagonist_cooldown_update"]
 [connection signal="health_changed" from="." to="CanvasLayer/Interface" method="_on_protagonist_health_changed"]
+[connection signal="key_count_changed" from="." to="CanvasLayer/Interface" method="_on_protagonist_key_count_changed"]
 [connection signal="body_entered" from="MeleeRange" to="." method="_on_MeleeRange_body_entered"]
 [connection signal="body_exited" from="MeleeRange" to="." method="_on_MeleeRange_body_exited"]
 [connection signal="timeout" from="CastTimer" to="." method="_on_CastTimer_timeout"]
 [connection signal="timeout" from="HitCooldownTimer" to="." method="_on_HitCooldownTimer_timeout"]
 [connection signal="timeout" from="DrinkTimer" to="." method="_on_DrinkTimer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

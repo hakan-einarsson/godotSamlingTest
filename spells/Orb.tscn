@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.834437 )
 colors = PoolColorArray( 0.942169, 0.963429, 0.980469, 1, 0.0723267, 0.285163, 0.617188, 1 )
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=2]
 max_value = 3.0
 _data = [ Vector2( 0, 2.8992 ), 0.0, -3.3036, 0, 0, Vector2( 0.459953, 0.453705 ), 0.0, 0.0, 0, 0, Vector2( 0.980566, 0.136905 ), 0.335604, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=6]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.145695 )
 colors = PoolColorArray( 0.325812, 0.548535, 0.719033, 1, 1, 1, 1, 1 )
 
@@ -24,7 +24,7 @@ emission_sphere_radius = 30.0
 gravity = Vector2( 0, 0 )
 radial_accel = -61.29
 scale_amount = 4.0
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 1 )
 
 [node name="Particles2D" type="CPUParticles2D" parent="."]
 amount = 200
@@ -34,5 +34,5 @@ gravity = Vector2( 0, 0 )
 initial_velocity = 140.79
 radial_accel = -30.11
 scale_amount = 3.0
-scale_amount_curve = SubResource( 5 )
-color_ramp = SubResource( 6 )
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )

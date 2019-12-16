@@ -13,6 +13,7 @@ var target_in_melee_range = false
 var on_cooldown = false
 var ms = 8
 
+
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var explosion_scen = load("res://assets/Explosion.tscn")
@@ -28,7 +29,7 @@ func _ready():
 func _physics_process(delta):
 	if direction == Vector2():
 		animator.stop()
-	if target_in_melee_range:
+	if target_in_melee_range and target.alive:
 		speed=0
 		hit()
 	else:
@@ -90,11 +91,11 @@ func take_damage(amount,source):
 	if target == null:
 		target = source
 	
-func set_path(value):
-	path = value
-	if value.size() == 0:
-		return
-	set_process(true)
+#func set_path(value):
+#	path = value
+#	if value.size() == 0:
+#		return
+#	set_process(true)
 
 func _on_Area2D_body_entered(body):
 	if body.name != "TileMap":
@@ -132,3 +133,5 @@ func _on_Timer_timeout():
 			
 func set_target(body):
 	target=body
+
+

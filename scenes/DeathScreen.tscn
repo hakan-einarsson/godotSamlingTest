@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/PreScen3.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/DeathScreen.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="DeathScreen" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="RichTextLabel" parent="." index="1"]
+text = "Oh well, you died! Wanna try again?"
+
+[node name="btnContinue" parent="." index="2"]
+margin_left = 362.0
+margin_right = 430.0
+custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "Retry"
+
+[node name="btnQuit" type="Button" parent="." index="3"]
+margin_left = 584.0
+margin_top = 350.0
+margin_right = 652.0
+margin_bottom = 370.0
+custom_styles/normal = SubResource( 1 )
+custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_hover = Color( 0.905882, 0.611765, 0.129412, 1 )
+custom_colors/font_color_pressed = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "Quit"
+[connection signal="gui_input" from="btnQuit" to="." method="_on_btnQuit_gui_input"]

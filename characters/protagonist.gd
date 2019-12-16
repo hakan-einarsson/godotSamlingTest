@@ -9,15 +9,17 @@ onready var walk_anim=$Sprite
 onready var action_anim=$ActionSprite
 onready var sword_swing=$SwordSwing
 onready var blue_circle = $BlueCircle
+onready var death_timer=$DeathTimer
 
 var target = null
 var target_marker=null
 
 #var hit_cooldown_time = 5
 var hit_counter = 0
-var max_health=400
+var max_health=100000
 var health = max_health
-var speed = 100
+var alive = true
+var speed = 1000
 var movement = Vector2()
 var projektilScen = load("res://spells/projektil.tscn")
 var explosion_scen = load("res://assets/Explosion.tscn")
@@ -41,6 +43,7 @@ var is_targeting=false
 var dash_target=null
 var dash_position = Vector2()
 var dash_speed = 500
+var mobile = true
 #var dash_on_cooldown=false
 
 
@@ -50,9 +53,11 @@ var rot = 0
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 
+var keys = 3
 var animationState = "Down"
 signal health_changed(new_value)
 signal cooldown_update(cooldown, new_value, hide)
+signal key_count_changed(new_value)
 
 func _ready():
 	sword_swing.visible=false
@@ -114,7 +119,7 @@ func _input(event):
 				target_marker = target_marker_scen.instance()
 				if target.name=="Dragon":
 					target_marker.set_scale(Vector2(2,2))
-				get_parent().add_child(target_marker)
+				get_parent().call_deferred("add_child",target_marker)
 			
 			
 			
@@ -140,9 +145,10 @@ func _physics_process(delta):
 	else:
 		if movement == Vector2():
 			animation_player.stop()
-		movement = move_and_slide(movement)
-		if movement and is_casting:
-			cancel_cast()
+		if mobile:
+			movement = move_and_slide(movement)
+			if movement and is_casting:
+				cancel_cast()
 	if health <=0:
 		death()
 		
@@ -159,7 +165,7 @@ func take_damage(amount,source):
 	else:
 		floating_text.set_color(Color(0,1,0))
 		floating_text.text = "+"+str(amount)
-	get_parent().add_child(floating_text)
+	get_parent().call_deferred("add_child",floating_text)
 	health-=amount
 
 	emit_signal("health_changed", health)
@@ -187,7 +193,8 @@ func cancel_cast():
 	
 
 func cast_complete():
-	get_parent().add_child(spell)
+	get_parent().call_deferred("add_child",spell)
+	#get_parent().add_child(spell)
 	if target:
 		spell.shoot(global_position,target,self)
 	else:
@@ -200,10 +207,15 @@ func cast_complete():
 	blue_circle.emitting=false
 		
 func death():
-	var explosion = explosion_scen.instance()
-	explosion.explodera(global_position)
-	get_parent().add_child(explosion)
-	get_parent().remove_child(self)
+	if alive:
+		var explosion = explosion_scen.instance()
+		explosion.explodera(global_position)
+		get_parent().add_child(explosion)
+		walk_anim.visible=false
+		mobile=false
+		alive=false
+		death_timer.start()
+		print("death_timer start")
 
 func set_animation(target_pos):
 	if get_player_state(target_pos) != animationState:
@@ -297,3 +309,26 @@ func _on_DashTimer_timeout():
 			emit_signal("cooldown_update","Dash",time_left,true)
 			dash_cooldown_timer.stop()
 
+func pick_up_triforce():
+	toggle_action()
+	mobile=false
+	get_parent().triforce_picked_up()
+	
+func toggle_action():
+	if walk_anim.visible and not action_anim.visible:
+		walk_anim.visible=false
+		action_anim.visible=true
+	else:
+		walk_anim.visible=true
+		action_anim.visible=false
+
+func keys_update(value):
+	keys+=value
+	emit_signal("key_count_changed",keys)
+		
+
+
+func _on_DeathTimer_timeout():
+	print("DeathTimer tick")
+	get_tree().change_scene("res://scenes/DeathScreen.tscn")
+	

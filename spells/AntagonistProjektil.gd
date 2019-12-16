@@ -27,6 +27,7 @@ func shoot(start_pos,spell_target,body):
 	target = spell_target
 	source = body
 	self.global_position=start_pos
+	rotate(get_angle_to(spell_target.position))
 
 	
 

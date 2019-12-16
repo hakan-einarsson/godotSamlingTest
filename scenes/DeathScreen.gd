@@ -1,10 +1,5 @@
 extends Control
 
-onready var title = $Title
-onready var title_scale_anim=$Title/AnimationScale
-onready var btn_new_game=$btnNewGame
-onready var btn_quit=$btnQuit
-
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -17,22 +12,15 @@ func _ready():
 #func _process(delta):
 #	pass
 
-	
-func startTextAnimation():
-	title.visible=true
-	title_scale_anim.play("Scale")
-	
-func showButtons():
-	btn_new_game.visible=true
-	btn_quit.visible=true
-
-func _on_btnNewGame_gui_input(event):
-	if(Input.is_action_just_pressed("ui_accept")):
-		get_tree().change_scene("res://scenes/PreScen1.tscn")
-	pass # Replace with function body.
 
 
 func _on_btnQuit_gui_input(event):
 	if(Input.is_action_just_pressed("ui_accept")):
-		get_tree().quit()
+		get_tree().change_scene("res://scenes/titlescreen.tscn")
+		global.stage=null
+	pass # Replace with function body.
+
+func _on_btnContinue_gui_input(event):
+	if(Input.is_action_just_pressed("ui_accept")):
+		get_tree().change_scene("res://scenes/"+global.stage+".tscn")
 	pass # Replace with function body.

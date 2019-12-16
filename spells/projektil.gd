@@ -35,6 +35,7 @@ func shoot(start_pos,spell_target,body):
 		rotate(get_angle_to(spell_target))
 	else:
 		target = spell_target
+		rotate(get_angle_to(spell_target.position))
 		
 		
 	

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/SurvivalScen.gd" type="Script" id=1]
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://characters/protagonist.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Triforce.tscn" type="PackedScene" id=4]
 
 [node name="SurvivalScen" type="Node2D"]
+editor/display_folded = true
 script = ExtResource( 1 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
@@ -23,5 +25,8 @@ autostart = true
 [node name="ScenTimer" type="Timer" parent="."]
 wait_time = 29.0
 autostart = true
+
+[node name="Triforce" parent="." instance=ExtResource( 4 )]
+position = Vector2( 504, 161 )
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="ScenTimer" to="." method="_on_ScenTimer_timeout"]

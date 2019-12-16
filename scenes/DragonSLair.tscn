@@ -19,7 +19,6 @@ position = Vector2( 468.069, 157.081 )
 
 [node name="protagonist" parent="." instance=ExtResource( 4 )]
 position = Vector2( 466.664, 605.7 )
-z_index = 1
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 15.0

@@ -7,6 +7,8 @@ onready var drink_cooldown_text = $PotCooldown/Label
 onready var drink_coodlwon = $PotCooldown
 onready var dash_cooldown_text = $DashCooldown/Label
 onready var dash_coodlwon = $DashCooldown
+onready var key_count = $Control/key_field/key_count
+onready var key_field = $Control/key_field
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,3 +40,7 @@ func _on_protagonist_cooldown_update(cooldown, new_value, hide):
 			dash_coodlwon.visible=true
 		else:
 			dash_coodlwon.visible=false
+
+func _on_protagonist_key_count_changed(new_value):
+	key_field.visible=true
+	key_count.text=str(new_value)
