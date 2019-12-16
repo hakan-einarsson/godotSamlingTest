@@ -13,6 +13,7 @@ onready var death_timer=$DeathTimer
 
 var target = null
 var target_marker=null
+var enemy = false
 
 #var hit_cooldown_time = 5
 var hit_counter = 0
@@ -269,13 +270,15 @@ func walking_sprite():
 
 func _on_MeleeRange_body_entered(body):
 	if body.name != "TileMap" and body.name != self.name:
-		targets_in_melee_range.append(body) # Replace with function body.
+		if body.enemy:
+			targets_in_melee_range.append(body) # Replace with function body.
 	
 
 
 func _on_MeleeRange_body_exited(body):
 	if body.name != "TileMap" and body.name != self.name:
-		targets_in_melee_range.erase(body)
+		if body.enemy:
+			targets_in_melee_range.erase(body)
 	
 func dash_complete():
 	is_dashing=false

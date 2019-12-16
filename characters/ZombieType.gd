@@ -12,6 +12,7 @@ var direction=Vector2()
 var target_in_melee_range = false
 var on_cooldown = false
 var ms = 8
+var enemy = true
 
 
 var floating_text_scen = load("res://Interface/Text.tscn")

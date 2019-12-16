@@ -21,6 +21,7 @@ var collision_shape_rotated = false
 var alive = true
 var phase = 1
 var phase2 = false
+var enemy = true
 
 signal health_changed(new_value)
 

@@ -114,6 +114,7 @@ func _on_TrapTimer_timeout():
 		call_deferred("add_child",caster)
 		caster.position=trap_coords[trap_coords_counter]
 		caster.target=protagonist
+		trap_coords_counter+=1
 	else:
 		trap_timer.stop()
 		remove_child(trap_gate)
