@@ -2,6 +2,7 @@ extends Area2D
 
 # Declare member variables here. Examples:
 var dragon_fire_scatter_scen = load("res://spells/DragonFireScatter.tscn")
+
 var damage = 100
 var target = null
 var direction = Vector2()

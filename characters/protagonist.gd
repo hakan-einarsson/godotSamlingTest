@@ -17,11 +17,12 @@ var enemy = false
 
 #var hit_cooldown_time = 5
 var hit_counter = 0
-var max_health=100000
+var max_health=200
 var health = max_health
 var alive = true
-var speed = 1000
+var speed = 100
 var movement = Vector2()
+var invulnerable = false
 var projektilScen = load("res://spells/projektil.tscn")
 var explosion_scen = load("res://assets/Explosion.tscn")
 var dash_target_scen = load("res://Interface/Target.tscn")
@@ -54,7 +55,7 @@ var rot = 0
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 
-var keys = 3
+var keys = 0
 var animationState = "Down"
 signal health_changed(new_value)
 signal cooldown_update(cooldown, new_value, hide)
@@ -157,17 +158,20 @@ func _physics_process(delta):
 	
 
 func take_damage(amount,source):
-	var floating_text = floating_text_scen.instance()
-	floating_text.position=position
-	floating_text.velocity = Vector2(0,-100)
-	if amount > 0:
-		floating_text.set_color(Color(1,0,0))
-		floating_text.text = "-"+str(amount)
+	if not invulnerable:
+		var floating_text = floating_text_scen.instance()
+		floating_text.position=position
+		floating_text.velocity = Vector2(0,-100)
+		if amount > 0:
+			floating_text.set_color(Color(1,0,0))
+			floating_text.text = "-"+str(amount)
+		else:
+			floating_text.set_color(Color(0,1,0))
+			floating_text.text = "+"+str(amount)
+		get_parent().call_deferred("add_child",floating_text)
+		health-=amount
 	else:
-		floating_text.set_color(Color(0,1,0))
-		floating_text.text = "+"+str(amount)
-	get_parent().call_deferred("add_child",floating_text)
-	health-=amount
+		pass
 
 	emit_signal("health_changed", health)
 
@@ -315,6 +319,7 @@ func _on_DashTimer_timeout():
 func pick_up_triforce():
 	toggle_action()
 	mobile=false
+	invulnerable=true
 	get_parent().triforce_picked_up()
 	
 func toggle_action():

@@ -5,6 +5,7 @@ onready var nav_2d = $Navigation2D
 onready var spawn_timer=$SpawnTimer
 onready var lavapool_timer=$LavapoolTimer
 onready var protagonist = $protagonist
+onready var end_timer = $EndTimer
 #onready var dragon = $Dragon
 var zombie = load("res://characters/ZombieType.tscn")
 var lavapool = load("res://spells/Lavapool.tscn")
@@ -41,3 +42,12 @@ func _on_SpawnTimer_timeout():
 
 func _on_LavapoolTimer_timeout():
 	spawn_lavapool()
+
+func triforce_picked_up():
+	spawn_timer.stop()
+	lavapool_timer.stop()
+	end_timer.start()
+	
+
+func _on_EndTimer_timeout():
+	get_tree().change_scene("res://scenes/EndingCredits.tscn")

@@ -1,6 +1,6 @@
 extends Sprite
 
-var damage = 1000
+var damage = 100
 onready var animator = $AnimationPlayer
 # Called when the node enters the scene tree for the first time.
 

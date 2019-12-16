@@ -6,6 +6,7 @@ onready var map = $Navigation2D/TileMap
 var stair_scen = load("res://assets/Stairway.tscn")
 var ant = load("res://characters/antagonist.tscn")
 var zombie = load("res://characters/ZombieType.tscn")
+var triforce_scen = load("res://assets/Triforce.tscn")
 var list_of_units=[ant,zombie]
 var spawn_counter = 9
 var phase = [10,9,8,7,6,5,4,3]
@@ -29,7 +30,6 @@ func spawn_unit():
 func _on_SpawnTimer_timeout():
 	spawn_counter+=1
 	if spawn_counter >= phase[phase_counter] and scen_running:
-		#print("phase: ",phase_counter," ",phase[phase_counter])
 		spawn_unit()
 		spawn_counter=0
 
@@ -38,6 +38,10 @@ func _on_ScenTimer_timeout():
 	phase_counter += 1
 	if phase_counter == len(phase)-1:
 		scen_running=false
+		var triforce = triforce_scen.instance()
+		call_deferred("add_child",triforce)
+		triforce.position = Vector2(512,161)
+		
 
 func triforce_picked_up():
 	var stairway = stair_scen.instance()

@@ -99,7 +99,7 @@ func take_damage(amount,source):
 #	set_process(true)
 
 func _on_Area2D_body_entered(body):
-	if body.name != "TileMap":
+	if body.name == "protagonist":
 		target = body
 		
 func show_damage_text(damage):

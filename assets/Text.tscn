@@ -1,0 +1,10 @@
+[gd_scene format=2]
+
+[node name="Text" type="RichTextLabel"]
+margin_left = 272.0
+margin_top = 200.0
+margin_right = 512.0
+margin_bottom = 250.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/default_color = Color( 0.905882, 0.611765, 0.129412, 1 )
+text = "Last is to slay the big dragon! There's got to be a big dragon! Good luck..."

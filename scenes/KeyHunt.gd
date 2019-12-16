@@ -86,6 +86,15 @@ func _on_Key2_picked_up(name):
 	call_deferred("add_child",trap_gate)
 	trap_gate.position=Vector2(480,656)
 	trap_timer.start()
+	var skel = skel_unit.instance()
+	call_deferred("add_child",skel)
+	skel.position=trap_coords[len(trap_coords)-2]
+	skel.target=protagonist
+	var caster = caster_unit.instance()
+	call_deferred("add_child",caster)
+	caster.position=trap_coords[len(trap_coords)-2]
+	caster.target=protagonist
+	trap_coords_counter+=1
 	
 
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Triforce.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Text.tscn" type="PackedScene" id=2]
+
+[node name="EndingCredits" type="Control"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Triforce" parent="." instance=ExtResource( 1 )]
+position = Vector2( 512, 157.08 )
+
+[node name="Triforce2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 531.401, 196.747 )
+
+[node name="Triforce3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 491.544, 196.747 )
+
+[node name="Text" parent="." instance=ExtResource( 2 )]
+margin_left = 269.905
+margin_top = 306.618
+margin_right = 509.905
+margin_bottom = 356.618
+text = "Good job and all. To be continued..."

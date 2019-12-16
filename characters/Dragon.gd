@@ -13,6 +13,7 @@ onready var bolt_timer = $BoltTimer
 var dragon_fire_scen = load("res://spells/DragonFire.tscn")
 var floating_text_scen = load("res://Interface/Text.tscn")
 var PopupDamageObject = load("res://Interface/PopupDamage.tscn")
+var triforce_scen=load("res://assets/Triforce.tscn")
 var direction = Vector2()
 var max_health=1000
 var health = max_health
@@ -22,6 +23,7 @@ var alive = true
 var phase = 1
 var phase2 = false
 var enemy = true
+var death_pos = Vector2()
 
 signal health_changed(new_value)
 
@@ -69,10 +71,12 @@ func _physics_process(delta):
 		phase = floor(1/(float(health)/max_health))
 
 	if target and target.health > 0 and alive:
-		if phase == 1 or phase > 5:
-			if phase > 5:
+		if phase == 1 or phase >= 5:
+			if phase2:
 				phase2=false
 				bolt_timer.stop()
+				is_casting=false
+				cast_time_counter=0
 			casting_spell=dragon_fire_scen
 			set_animation(target.position)
 			if is_casting and (cast_time-cast_time_counter) < 5:
@@ -114,7 +118,10 @@ func _physics_process(delta):
 		
 func death():
 	alive=false
+	death_pos=position
 	animation_player.play("Die")
+	queue_free()
+	add_triforce()
 			
 func move_along_path(distance):
 	direction = Vector2(cos(get_angle_to(path[1])),sin(get_angle_to(path[1])))
@@ -229,3 +236,10 @@ func _on_Area2D_body_entered(body):
 
 func _on_BoltTimer_timeout():
 	shock_wave()
+	
+func add_triforce():
+	var triforce = triforce_scen.instance()
+	get_parent().call_deferred("add_child",triforce)
+	triforce.position=death_pos
+
+	
