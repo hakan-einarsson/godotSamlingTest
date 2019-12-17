@@ -246,7 +246,6 @@ tracks/1/keys = {
 [sub_resource type="StyleBoxEmpty" id=11]
 
 [node name="titlescreen" type="Control"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )

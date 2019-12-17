@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/The Legend of Zelda Cartoon Sound Effects Health Heart.wav-a070d6934e03a50d299221f93e0194bf.sample"
+
+[deps]
+
+source_file="res://assets/sounds/The Legend of Zelda Cartoon Sound Effects Health Heart.wav"
+dest_files=[ "res://.import/The Legend of Zelda Cartoon Sound Effects Health Heart.wav-a070d6934e03a50d299221f93e0194bf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

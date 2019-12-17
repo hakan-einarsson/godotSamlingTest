@@ -13,8 +13,6 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Text" parent="." instance=ExtResource( 2 )]
-
 [node name="btnContinue" type="Button" parent="."]
 margin_left = 478.0
 margin_top = 350.0
@@ -25,4 +23,6 @@ custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
 custom_colors/font_color_hover = Color( 0.905882, 0.611765, 0.129412, 1 )
 custom_colors/font_color_pressed = Color( 0.905882, 0.611765, 0.129412, 1 )
 text = "Continue"
+
+[node name="Text" parent="." instance=ExtResource( 2 )]
 [connection signal="gui_input" from="btnContinue" to="." method="_on_btnContinue_gui_input"]

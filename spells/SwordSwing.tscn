@@ -1,11 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/swordSwing.png" type="Texture" id=1]
 [ext_resource path="res://spells/SwordSwing.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/The Legend of Zelda Cartoon Sound Effects Master Sword Sword Zap.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Swing"
-length = 0.3
+length = 0.65
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -33,6 +34,20 @@ tracks/1/keys = {
 "method": "swing_stop"
 } ]
 }
+tracks/2/type = "audio"
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
 
 [node name="SwordSwing" type="Sprite"]
 scale = Vector2( 2, 2 )
@@ -40,6 +55,10 @@ texture = ExtResource( 1 )
 hframes = 8
 frame = 1
 script = ExtResource( 2 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+stream = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Swing = SubResource( 1 )

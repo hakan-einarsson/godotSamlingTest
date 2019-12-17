@@ -6,5 +6,5 @@
 [node name="PreScen2" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="RichTextLabel" parent="." index="1"]
-text = "Time to survive a horde! Coming at you, one at a time, all in good sport..."
+[node name="Text" parent="." index="2"]
+text = "Now face a horde, coming at you, one at a time, all in good sports..."
