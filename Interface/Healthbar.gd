@@ -10,4 +10,4 @@ func _ready():
 	healthbar.value = 100
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func p
+

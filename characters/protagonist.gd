@@ -10,6 +10,7 @@ onready var action_anim=$ActionSprite
 onready var sword_swing=$SwordSwing
 onready var blue_circle = $BlueCircle
 onready var death_timer=$DeathTimer
+onready var sound_player = $Sound
 
 var target = null
 var target_marker=null
@@ -20,13 +21,15 @@ var hit_counter = 0
 var max_health=200
 var health = max_health
 var alive = true
-var speed = 100
+var speed = 120
 var movement = Vector2()
 var invulnerable = false
 var projektilScen = load("res://spells/projektil.tscn")
 var explosion_scen = load("res://assets/Explosion.tscn")
 var dash_target_scen = load("res://Interface/Target.tscn")
 var target_marker_scen = load("res://Interface/TargetMarker.tscn")
+var potion_sound = load("res://assets/sounds/potion.wav")
+var death_sound = load("res://assets/sounds/death.wav")
 
 var cooldowns = {"Hit":5,
 			"Drink":300,
@@ -70,63 +73,99 @@ func _input(event):
 	
 	
 	if event.is_action_pressed("ui_hit"): 
-		if cooldown_counters["Hit"]==cooldowns["Hit"]:
-			cooldown_counters["Hit"]=0
-			sword_swing.rotate(-rot)
-			rot = position.angle_to_point(get_global_mouse_position())+deg2rad(90)
-			sword_swing.rotate(rot)
-			sword_swing.player_swing(targets_in_melee_range,self)
-			hit_cooldown_timer.start()
+		hit()
+	
 	
 	if event.is_action_pressed("ui_cast"): 
-		cast_start(projektilScen)
+		cast()
+		
 	
 	if event.is_action_pressed("ui_drink"):
-		if cooldown_counters["Drink"]==cooldowns["Drink"]: 
-			if health+100 <= max_health:
-				take_damage(-100,self)
-				emit_signal("health_changed",health)
-			else:
-				take_damage(-(max_health-health),self)
-				emit_signal("health_changed",health)
-			cooldown_counters["Drink"]=0
-			drink_cooldown_timer.start()
+		drink()
+
 	
 	if event.is_action_pressed("ui_dash"): 
-		if cooldown_counters["Dash"]==cooldowns["Dash"]:
-			if not is_targeting:
-				dash_target = dash_target_scen.instance()
-				get_parent().add_child(dash_target)
-				is_targeting=true
-			else:
-				is_targeting=false
-				dash_target.remove_target()
+		dash()
 			
 	if event.is_action_pressed("ui_accept") and is_targeting:
-			cooldown_counters["Dash"]=0
-			dash_position=dash_target.position
-			dash_target.set_target_position(get_global_mouse_position())
-			is_dashing=true
-			is_targeting=false
-			dash_cooldown_timer.start()
+		target_dash()
+
 			
 	if event.is_action_pressed("ui_accept") and not is_targeting:
-		var space = get_world_2d().direct_space_state
-		var collision = space.intersect_point(get_global_mouse_position())
-		if collision and collision[0].collider.name != "TileMap":
-			if collision[0].collider.name != "protagonist":
-				if target:
-					target_marker.queue_free()
-				target = collision[0].collider
-				target_marker = target_marker_scen.instance()
-				if target.name=="Dragon":
-					target_marker.set_scale(Vector2(2,2))
-				get_parent().call_deferred("add_child",target_marker)
+		targeting()
+		
+	if event.is_action_pressed("ui_focus_next"):
+		print("tab pressed")
 			
+
+		
+		
+func targeting():
+	var space = get_world_2d().direct_space_state
+	var collision = space.intersect_point(get_global_mouse_position())
+	if collision and collision[0].collider.name != "TileMap":
+		if collision[0].collider.name != "protagonist":
+			if target:
+				target_marker.queue_free()
+			target = collision[0].collider
+			target_marker = target_marker_scen.instance()
+			if target.name=="Dragon":
+				target_marker.set_scale(Vector2(2,2))
+			get_parent().call_deferred("add_child",target_marker)
+			
+func hit():
+	if cooldown_counters["Hit"]==cooldowns["Hit"] and not is_casting:
+		cooldown_counters["Hit"]=0
+		sword_swing.rotate(-rot)
+		rot = position.angle_to_point(get_global_mouse_position())+deg2rad(90)
+		sword_swing.rotate(rot)
+		sword_swing.player_swing(targets_in_melee_range,self)
+		hit_cooldown_timer.start()
+		
+func cast():
+	if target:
+		cast_start(projektilScen)
+		
+func drink():
+	if cooldown_counters["Drink"]==cooldowns["Drink"] and not is_casting: 
+		if health+100 <= max_health:
+			take_damage(-100,self)
+			emit_signal("health_changed",health)
+		else:
+			take_damage(-(max_health-health),self)
+			emit_signal("health_changed",health)
+		cooldown_counters["Drink"]=0
+		sound_player.stream=potion_sound
+		sound_player.volume_db=-20
+		sound_player.play()
+		drink_cooldown_timer.start()
+		
+func dash():
+	if cooldown_counters["Dash"]==cooldowns["Dash"]:
+		if not is_targeting:
+			dash_target = dash_target_scen.instance()
+			get_parent().add_child(dash_target)
+			is_targeting=true
+		else:
+			is_targeting=false
+			dash_target.remove_target()
+			
+func target_dash():
+	cooldown_counters["Dash"]=0
+	dash_position=dash_target.position
+	dash_target.set_target_position(get_global_mouse_position())
+	if is_casting:
+		cancel_cast()
+	is_dashing=true
+	is_targeting=false
+	dash_cooldown_timer.start()
 			
 			
 
 func _physics_process(delta):
+	if Input.is_action_pressed("on_click_move"):
+		movement.x=cos(get_angle_to(get_global_mouse_position()))*speed
+		movement.y=sin(get_angle_to(get_global_mouse_position()))*speed
 	if target:
 		target_marker.position = target.position
 		if target.health <= 0:
@@ -156,6 +195,16 @@ func _physics_process(delta):
 		
 		
 	
+func in_sight(body):
+	var space_state = get_world_2d().direct_space_state
+	#print(position, body.position)
+	if body.position != position:
+		var result = space_state.intersect_ray(position, body.position,[self])
+		if result:
+			if result.collider.name != "TileMap":
+				return true
+			else:
+				return false
 
 func take_damage(amount,source):
 	if not invulnerable:
@@ -188,6 +237,8 @@ func cast_start(spell_type):
 		
 func cancel_cast():
 	cast_timer.stop()
+	if sound_player.is_playing():
+		sound_player.stop()
 	is_casting = false
 	cast_time=0
 	cast_time_counter=0
@@ -202,8 +253,10 @@ func cast_complete():
 	#get_parent().add_child(spell)
 	if target:
 		spell.shoot(global_position,target,self)
+		spell.rotate(get_angle_to(target.position))
 	else:
 		spell.shoot(global_position,get_global_mouse_position(),self)
+		spell.rotate(get_angle_to(get_global_mouse_position()))
 	cast_time = 0
 	cast_time_counter = 0
 	is_casting=false
@@ -219,6 +272,10 @@ func death():
 		walk_anim.visible=false
 		mobile=false
 		alive=false
+		get_parent().get_node("Music").stop()
+		sound_player.stream=death_sound
+		sound_player.volume_db=-20
+		sound_player.play()
 		death_timer.start()
 		print("death_timer start")
 
@@ -258,6 +315,12 @@ func show_damage_text(damage):
 	
 
 func _on_CastTimer_timeout():
+	if cast_time_counter==3:
+		sound_player.stream=load("res://assets/sounds/casting.wav")
+		sound_player.volume_db=-30
+		sound_player.play()
+	if sound_player.is_playing() and sound_player.volume_db < -15:
+		sound_player.volume_db+=5
 	cast_time_counter+=1
 	cast_bar.update_cast_bar()
 	if cast_time_counter == cast_time:

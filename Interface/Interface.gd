@@ -44,3 +44,28 @@ func _on_protagonist_cooldown_update(cooldown, new_value, hide):
 func _on_protagonist_key_count_changed(new_value):
 	key_field.visible=true
 	key_count.text=str(new_value)
+
+
+
+func _on_AttackButton_gui_input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		get_parent().get_parent().hit()
+	pass # Replace with function body.
+
+
+func _on_RangedAttack_gui_input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		get_parent().get_parent().cast()
+	pass # Replace with function body.
+
+
+func _on_Potion_gui_input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		get_parent().get_parent().drink()
+	pass # Replace with function body.
+
+
+func _on_Dash_gui_input(event):
+	if Input.is_action_just_pressed("ui_accept"):
+		get_parent().get_parent().dash()
+	pass # Replace with function body.

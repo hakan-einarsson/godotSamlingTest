@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/titlescreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/LinkActionGreenOw.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/skeleton.png" type="Texture" id=4]
 [ext_resource path="res://assets/triforce.png" type="Texture" id=5]
 [ext_resource path="res://assets/textTitle.png" type="Texture" id=6]
+[ext_resource path="res://assets/sounds/music/intro.ogg" type="AudioStream" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Blink"
@@ -365,5 +366,9 @@ custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
 custom_colors/font_color_hover = Color( 0.905882, 0.611765, 0.129412, 1 )
 custom_colors/font_color_pressed = Color( 0.905882, 0.611765, 0.129412, 1 )
 text = "Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
 [connection signal="gui_input" from="btnNewGame" to="." method="_on_btnNewGame_gui_input"]
 [connection signal="gui_input" from="btnQuit" to="." method="_on_btnQuit_gui_input"]

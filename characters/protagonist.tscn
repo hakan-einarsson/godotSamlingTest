@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://characters/protagonist.gd" type="Script" id=1]
 [ext_resource path="res://assets/linkGreenOverworld.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://spells/SwordSwing.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/BlueCircle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Interface/Interface.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sounds/potion.wav" type="AudioStream" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
@@ -264,12 +265,16 @@ scale = Vector2( 2, 2 )
 emitting = false
 
 [node name="DeathTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.6
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="Interface" parent="CanvasLayer" instance=ExtResource( 7 )]
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
 [connection signal="cooldown_update" from="." to="CanvasLayer/Interface" method="_on_protagonist_cooldown_update"]
 [connection signal="health_changed" from="." to="CanvasLayer/Interface" method="_on_protagonist_health_changed"]
 [connection signal="key_count_changed" from="." to="CanvasLayer/Interface" method="_on_protagonist_key_count_changed"]

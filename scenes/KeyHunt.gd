@@ -1,6 +1,6 @@
 extends Node2D
 
-
+var pool_of_enemies=[]
 var left_has_spawned = false
 var right_has_spawned = false
 var caster_unit=load("res://characters/antagonist.tscn")
@@ -61,6 +61,7 @@ func _on_leftSpawn_body_entered(body):
 			for coord in left_units:
 				var unit = caster_unit.instance()
 				call_deferred("add_child",unit)
+				pool_of_enemies.append(unit)
 				unit.position=coord
 			left_has_spawned=true
 		if not skel_timer.is_paused():

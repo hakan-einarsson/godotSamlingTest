@@ -95,6 +95,7 @@ margin_bottom = 528.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="key_field" type="ColorRect" parent="Control"]
+editor/display_folded = true
 visible = false
 margin_left = 919.0
 margin_right = 973.0
@@ -119,6 +120,7 @@ custom_colors/font_color = Color( 0.905882, 0.611765, 0.129412, 1 )
 text = "0"
 
 [node name="HitCooldown" type="ColorRect" parent="."]
+editor/display_folded = true
 visible = false
 margin_left = 10.5465
 margin_top = 525.251
@@ -237,3 +239,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "4"
 align = 1
 valign = 1
+[connection signal="gui_input" from="Control/AttackButton" to="." method="_on_AttackButton_gui_input"]
+[connection signal="gui_input" from="Control/RangedAttack" to="." method="_on_RangedAttack_gui_input"]
+[connection signal="gui_input" from="Control/Potion" to="." method="_on_Potion_gui_input"]
+[connection signal="gui_input" from="Control/Dash" to="." method="_on_Dash_gui_input"]
